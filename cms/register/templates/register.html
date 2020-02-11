@@ -5,6 +5,7 @@
         <title>Habbelix: Escolha seu sexo e sua data de nascimento!</title>
 
         <link type="text/css" href="{{ url_for('static', filename='css/registration.css') }}" rel="stylesheet">
+        <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
     </head>
 
     <body>
@@ -13,13 +14,43 @@
 
             <div class="content-box" id="step-1">
                 <div class="title-box">
-                    <div class="title">Sexo e data de nascimento</div>
-                    <div class="steps">1 / 3</div>
+                    <div class="title">Credenciais</div>
+                    <div class="steps">1 / 2</div>
                 </div>
 
                 <div class="png20">
-                    <form action="/register/step2/" method="POST">
-                        <input type="hidden" id="gender" name="gender" value="">
+                    <form action="/register/save" method="POST">
+
+                        <label for="register-mail">Digite seu e-mail</label>
+                        <input type="text" id="register-mail" name="register-mail" onblur="searchEmail()" required>
+                        <!-- <p class="desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p> -->
+
+                        <label for="register-username">Escolha um nick</label>
+                        <input type="text" id="register-username" name="register-username" value="" required>
+                        <!-- <p class="desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p> -->
+
+                        <!-- <div class="alert">Du musst eine E-Mail Adresse angeben.</div> -->
+
+                        <label for="register-password">Senha</label>
+                        <input type="password" id="register-password" name="register-password" required>
+                        <!-- <p class="desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p> -->
+
+                        <!-- <div class="alert">Die angebenen Passwörter stimmen nicht überein!</div> -->
+
+                        <label for="register-password-confirm">Confirme a senha</label>
+                        <input type="password" id="register-password-confirm" name="register-password-confirm" onblur="confirmPassword()" required>
+
+                        <span id='message'></span>
+                        <!-- <p class="desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p> -->
+                    </div>
+                        <div class="content-box" id="step-1">
+                            <div class="title-box">
+                                <div class="title">Informações Pessoais</div>
+                                <div class="steps">2 / 2</div>
+                        </div>
+                    <div class="png20">
+
+                        <input type="hidden" id="gender" name="gender" value="" required>
 
                         <div class="alert">Escolha seu gênero</div>
 
@@ -69,32 +100,8 @@
 
                         <div style="clear:both"></div>
 
-                        <label for="register-username">Escolha um nome Habbelix</label>
-                        <input type="text" id="register-username" name="register-username" value="">
-                        <!-- <p class="desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p> -->
-
-                        <!-- <div class="alert">Du musst eine E-Mail Adresse angeben.</div> -->
-
-                        <label for="register-mail">Digite seu e-mail</label>
-                        <input type="text" id="register-mail" name="register-mail" value="">
-                        <p class="desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
-
-                        <label for="register-password">Senha</label>
-                        <input type="password" id="register-password" name="register-password">
-                        <div class="alert">A senha deve conter mais de 8 caractéres</div>
-
-
-                        <!-- <p class="desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p> -->
-
-                        <!-- <div class="alert">Die angebenen Passwörter stimmen nicht überein!</div> -->
-
-                        <label for="register-password-repeat">Confirme a senha</label>
-                        <input type="password" id="register-password-repeat" name="register-password-repeat">
-                        <p class="desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
-
-
-                        <a href="\" class="btn red back-register">Zerar</a>
-                        <button class="btn green next-register">Avançar</button>
+                        <a href="/" class="btn red back-register">Voltar</a>
+                        <button class="btn green next-register">Registrar</button>
 
                         <div style="clear:both"></div>
                     </form>
@@ -104,4 +111,20 @@
     </body>
     <script type="text/javascript" src="{{ url_for('static', filename='js/vendor.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script type="text/javascript">
+        function searchEmail() {
+            console.log('TO DO / CONSULTAR SE O E-MAIL JÁ EXISTE CADASTRADO NO BANCO')
+        }
+
+        function confirmPassword() {
+            var password = $('#register-password').val()
+            var confirm_password = $('#register-password-confirm').val()
+            if (confirm_password != password) {
+                document.getElementById('message').style.color = 'red';
+                document.getElementById('message').innerHTML = 'As senhas não combinam, tente novamente';
+            } else {
+                document.getElementById('message').style.display = 'none';
+            }
+        }
+    </script>
 </html>
