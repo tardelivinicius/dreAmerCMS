@@ -5,6 +5,8 @@
 
         <title>Habbelix</title>
         <link type="text/css" href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet">
+        <script type="text/javascript" src="{{ url_for('static', filename='js/vendor.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
     </head>
 
     <body>
@@ -29,13 +31,13 @@
                 <div class="col-md-5">
                     <div class="login-position">
                         <h2>Bem vindo</h2>
-                        <form method="post">
-                            <label for="login-username">Digite seu nome Habbelix ou e-mail</label>
-                            <input type="text" name="login-username" id="login-username">
+                        <form method="post" action="/login">
+                            <label for="login">Digite seu nome Habbelix ou e-mail</label>
+                            <input type="text" name="username" id="username">
 
-                            <label for="login-password">Senha</label>
-                            <input type="password" name="login-password" id="login-password">
-
+                            <label for="password">Senha</label>
+                            <input type="password" name="password" id="password">
+                            <span id='message_login'></span><br>
                             <button class="btn big green login-button">Entrar</button>
                         </form>
                         <div class="clear"></div>
@@ -98,4 +100,24 @@
             </div> -->
         </div>
     </body>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('form').on('submit', function(event) {
+            event.preventDefault();
+            $.ajax({
+                url: 'login',
+                method: "POST",
+                data: $(this).serialize(),
+                async: false,
+                success: function(result) {
+                    window.location.href = '/me'
+                },
+                error: function() {
+                    document.getElementById('message_login').style.color = 'red';
+                    document.getElementById('message_login').innerHTML = 'Usuário ou Senha inválidos';
+                }
+            });
+        })
+    })
+    </script>
 </html>

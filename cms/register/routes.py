@@ -140,25 +140,27 @@ def register_step3():
 
         db.execute(query)
         mysql.connection.commit()
+
         db.close()
+
         return Response('', 200)
 
 @mod.route('/check-username-email-exists', methods=['POST'])
 def check_username_email_exists():
     # MySQL cursor
-    cursor = mysql.connection.cursor()
+    db = mysql.connection.cursor()
 
     ''' Verifica se existe um e-mail cadastrado '''
     if request.form.get('register-email', None):
-        cursor.execute(f"SELECT * FROM users WHERE mail = '{request.form['register-email']}' ")
-        query = cursor.fetchall()
+        db.execute(f"SELECT * FROM users WHERE mail = '{request.form['register-email']}' ")
+        query = db.fetchall()
         if query:
             return Response('E-mail já cadastrado em nosso sistema', 409)
 
     ''' Verifica se existe um nickname cadastrado '''
     if request.form.get('register-username', None):
-        cursor.execute(f"SELECT * FROM users WHERE username = '{request.form['register-username']}' ")
-        query = cursor.fetchall()
+        db.execute(f"SELECT * FROM users WHERE username = '{request.form['register-username']}' ")
+        query = db.fetchall()
         if query:
             return Response('Nome de usuário já cadastrado em nosso sistema', 409)
 
