@@ -19,4 +19,12 @@ mod = Blueprint('account', __name__, template_folder='templates')
 def index():
     if not 'user_id' in session:
         return redirect('/')
+
+    if 'user_id' in session:
+        # MySQL cursor
+        db = mysql.connection.cursor()
+        db.execute(f"SELECT id, username, mail, look FROM users WHERE id = '{session['user_id']}'")
+        result = db.fetchone()
+        g.user = result
+
     return render_template('me.html')
