@@ -1,5 +1,5 @@
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900|Roboto:300,400,500,700,900";
-@import "https://pro-next.fontawesome.com/releases/v5.6.3/css/all.css";
+/* @import "https://pro-next.fontawesome.com/releases/v5.6.3/css/all.css"; */
 body {
   background: #94c1d3;
   color: #424251;
@@ -15,6 +15,13 @@ body {
 .main {
   position: relative;
   width: 400px;
+  margin: 0 auto;
+  margin-top: 150px;
+}
+
+.main-step3 {
+  position: relative;
+  width: 750px;
   margin: 0 auto;
   margin-top: 150px;
 }
