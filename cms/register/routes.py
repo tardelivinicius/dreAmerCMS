@@ -43,19 +43,19 @@ def index():
 
 @mod.route('/step1', methods=['POST'])
 def register_step1():
+    ''' Validação dos dados básicos '''
     # E-mail Regex
-    # EMAIL_REGEX = re.compile(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
+    EMAIL_REGEX = re.compile(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
     data = {}
 
     # Validation method
     if request.method == 'POST':
         # E-mail Validation
-        if request.form['register-mail'] is None:
-        # if not EMAIL_REGEX(request.form['register-mail']):
+        if request.form['register-email'] is None:
+        # if not EMAIL_REGEX(request.form['register-email']):
             raise ValueError("O endereço de e-mail deve ser válido")
         else:
-            # CONSULTAR O E-MAIL NO BANCO PARA VER SE JÁ EXISTE, GARANTIR QUE NÃO VAI TER E-MAIL DUPLICADO
-            data.update({'register-mail': request.form['register-mail']})
+            data.update({'register-email': request.form['register-email']})
 
         # Nickname Validation
         if request.form['register-username'] is None:
@@ -73,10 +73,12 @@ def register_step1():
             else:
                 raise ValueError("As senhas não combinam")
 
+        print(data)
         return jsonify(data)
 
 @mod.route('/step2', methods=['POST'])
 def register_step2():
+    ''' Validação de gênero e data de nascimento '''
     if request.method == 'POST':
         data = {}
         if request.form['gender'] is None:
@@ -84,32 +86,28 @@ def register_step2():
         else:
             data.update({'gender': request.form['gender']})
 
-        birthday = '{0}-{1}-{2}'.format(request.form['year'], request.form['month'], request.form['day'])
-        data.update({'birthday': birthday})
-
         return jsonify(data)
 
 @mod.route('/step3', methods=['POST'])
 def register_step3():
+    ''' Nova validação e cadastro do usuário '''
 
-    # Cursor
-    cursor = mysql.connection.cursor()
+    # MySQL cursor
+    db = mysql.connection.cursor()
 
     # Repeat Validation
     if request.method == 'POST':
-
-        print(request.form)
         # E-mail Validation
-        if request.form['register-mail'] is None:
-        # if not EMAIL_REGEX(request.form['register-mail']):
+        if request.form['register-email'] is None:
+        # if not EMAIL_REGEX(request.form['register-email']):
             raise ValueError("O endereço de e-mail deve ser válido")
         else:
-            cursor.execute(f"SELECT * FROM users WHERE mail = '{request.form['register-mail']}' ")
-            query = cursor.fetchall()
+            db.execute(f"SELECT * FROM users WHERE mail = '{request.form['register-email']}' ")
+            query = db.fetchall()
             if query:
                 raise ValueError("O endereço de e-mail já existe")
             else:
-                email = request.form['register-mail']
+                email = request.form['register-email']
 
         # Nickname Validation
         if request.form['register-username'] is None:
@@ -129,9 +127,6 @@ def register_step3():
         else:
             gender = request.form['gender']
 
-        # Birthday Validation
-        # birthday = '{0}-{1}-{2}'.format(request.form['year'], request.form['month'], request.form['day'])
-
         motto = 'Olá, sou um novo Habbelix!'
 
         # Avatar Code Validation
@@ -140,5 +135,31 @@ def register_step3():
         else:
             avatar_code = request.form['avatar_code']
 
-        cursor.execute(f'''INSERT INTO users (username, password, mail, auth_ticket, rank_vip, credits, vip_points, activity_points, look, gender, motto, account_created, ip_last, ip_reg)
-                       VALUES ('{username}', '{password}', '{email}', 0, 3, 999999, 0, 0, '{avatar_code}', '{gender}', '{motto}', '2020-02-12', '192.168.0.1', '192.168.0.1')''')
+        query = f"""INSERT INTO users (username, password, mail, auth_ticket, rank_vip, credits, vip_points, activity_points, look, gender, motto, account_created, ip_last, ip_reg)
+                       VALUES ('{username}', '{password}', '{email}', 0, 3, 999999, 0, 0, '{avatar_code}', '{gender}', '{motto}', '2020-02-12', '192.168.0.1', '192.168.0.1')"""
+
+        db.execute(query)
+        mysql.connection.commit()
+        db.close()
+        return Response('', 200)
+
+@mod.route('/check-username-email-exists', methods=['POST'])
+def check_username_email_exists():
+    # MySQL cursor
+    cursor = mysql.connection.cursor()
+
+    ''' Verifica se existe um e-mail cadastrado '''
+    if request.form.get('register-email', None):
+        cursor.execute(f"SELECT * FROM users WHERE mail = '{request.form['register-email']}' ")
+        query = cursor.fetchall()
+        if query:
+            return Response('E-mail já cadastrado em nosso sistema', 409)
+
+    ''' Verifica se existe um nickname cadastrado '''
+    if request.form.get('register-username', None):
+        cursor.execute(f"SELECT * FROM users WHERE username = '{request.form['register-username']}' ")
+        query = cursor.fetchall()
+        if query:
+            return Response('Nome de usuário já cadastrado em nosso sistema', 409)
+
+    return Response('', 200)

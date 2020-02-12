@@ -123,28 +123,23 @@
         $(document).ready(function() {
             $('form').on('submit', function(event) {
             event.preventDefault();
-
-            let data = {'register-mail': localStorage.getItem('register-mail'),
+            let data = {'register-email': localStorage.getItem('register-email'),
                         'register-password': localStorage.getItem('register-password'),
                         'register-username': localStorage.getItem('register-username'),
                         'gender': localStorage.getItem('gender'),
-                        'birthday': localStorage.getItem('birthday'),
                         'avatar_code': $('#avatar_code').val(),
                         }
-
-            console.log(data)
-
             $.ajax({
                 url: 'step3',
                 method: "POST",
                 data: data,
-                dataType: 'json',
                 async: false,
                 success: function(result) {
-                    console.log('tudo certo garotinho')
+                    setTimeout(function(){ window.location.href = '/' }, 3000);
+
                 },
                 error: function() {
-                    alert("Ocorreu um erro ao carregar os dados.");
+                    alert("Ocorreu um erro ao inserir os dados, tente novamente.");
                 }
             });
         })

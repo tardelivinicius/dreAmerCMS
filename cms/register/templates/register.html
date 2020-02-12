@@ -20,18 +20,18 @@
                 </div>
 
                 <div class="png20">
-                    <form action="/register/step1" method="POST">
-
+                    <form action="/register/step1" method="POST" id="form">
+                        <!-- Email -->
                         <label for="register-mail">Digite seu e-mail</label>
-                        <input type="text" id="register-mail" name="register-mail" onblur="searchEmail()" required>
-                        <!-- <p class="desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p> -->
+                        <input type="text" id="register-email" name="register-email" onblur="validateEmail()" required>
+                        <span id='message_email'></span><br>
 
+                        <!-- Nome do Usuário -->
                         <label for="register-username">Escolha um nick</label>
-                        <input type="text" id="register-username" name="register-username" value="" required>
-                        <!-- <p class="desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p> -->
+                        <input type="text" id="register-username" name="register-username" onblur="validateUsername()" required>
+                        <span id='message_username'></span><br>
 
-                        <!-- <div class="alert">Du musst eine E-Mail Adresse angeben.</div> -->
-
+                        <!-- Senha -->
                         <label for="register-password">Senha</label>
                         <input type="password" id="register-password" name="register-password" required>
                         <!-- <p class="desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p> -->
@@ -60,8 +60,44 @@
     <script type="text/javascript" src="{{ url_for('static', filename='js/vendor.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
     <script type="text/javascript">
-        function searchEmail() {
-            console.log('TO DO / CONSULTAR SE O E-MAIL JÁ EXISTE CADASTRADO NO BANCO')
+        function validateEmail() {
+            if ($('#register-email').val().length > 0) {
+                $.ajax({
+                    url: 'check-username-email-exists',
+                    method: "POST",
+                    data: {"register-email": $('#register-email').val()},
+                    async: false,
+                    success: function(result) {
+                        document.getElementById('message_email').style.color = 'green';
+                        document.getElementById('message_email').innerHTML = 'E-mail disponível para cadastro';
+                    },
+                    error: function() {
+                        document.getElementById('message_email').style.color = 'red';
+                        document.getElementById('message_email').innerHTML = 'E-mail já cadastrado para outro usuário';
+                    }
+                });
+                event.preventDefault();
+            }
+        }
+
+        function validateUsername() {
+            if ($('#register-username').val().length > 0) {
+                $.ajax({
+                    url: 'check-username-email-exists',
+                    method: "POST",
+                    data: {"register-username": $('#register-username').val()},
+                    async: false,
+                    success: function(result) {
+                        document.getElementById('message_username').style.color = 'green';
+                        document.getElementById('message_username').innerHTML = 'Usuário disponível para cadastro';
+                    },
+                    error: function() {
+                        document.getElementById('message_username').style.color = 'red';
+                        document.getElementById('message_username').innerHTML = 'Usuário já cadastrado para outro usuário';
+                    }
+                    });
+                    event.preventDefault();
+                }
         }
 
         function confirmPassword() {
@@ -85,7 +121,8 @@
                 dataType: 'json',
                 async: false,
                 success: function(result) {
-                    localStorage.setItem('register-mail', result['register-mail']);
+                    console.log(result)
+                    localStorage.setItem('register-email', result['register-email']);
                     localStorage.setItem('register-password', result['register-password']);
                     localStorage.setItem('register-username', result['register-username']);
                     window.location.href = '?step=2'
