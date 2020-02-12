@@ -18,9 +18,10 @@ mod = Blueprint('login', __name__, template_folder='templates')
 @mod.route('/')
 def index():
     if 'user_id' in session:
-        return redirect('me')
+        return redirect('/account/me')
 
     return render_template('index.html')
+
 @mod.before_request
 def before_request():
     if 'user_id' in session:
@@ -64,7 +65,3 @@ def login():
 def logout():
     session.clear()
     return redirect('/')
-
-@mod.route('/me')
-def me():
-    return render_template('me.html')

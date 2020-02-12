@@ -19,6 +19,8 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 from cms.login.routes import mod
 from cms.register.routes import mod
+from cms.account.routes import mod
 
 app.register_blueprint(login.routes.mod)
 app.register_blueprint(register.routes.mod, url_prefix='/register')
+app.register_blueprint(account.routes.mod, url_prefix='/account')
