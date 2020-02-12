@@ -98,12 +98,13 @@ def register_step3():
     # Repeat Validation
     if request.method == 'POST':
 
+        print(request.form)
         # E-mail Validation
         if request.form['register-mail'] is None:
         # if not EMAIL_REGEX(request.form['register-mail']):
             raise ValueError("O endereço de e-mail deve ser válido")
         else:
-            cursor.execute(''' SELECT * FROM users WHERE email = {0} '''.format(request.form['register-mail']))
+            cursor.execute(f"SELECT * FROM users WHERE mail = '{request.form['register-mail']}' ")
             query = cursor.fetchall()
             if query:
                 raise ValueError("O endereço de e-mail já existe")
@@ -117,10 +118,10 @@ def register_step3():
             username = request.form['register-username']
 
         # Password Validation
-        if request.form['register-password'] is None or request.form['register-password-confirm'] is None:
+        if request.form['register-password'] is None:
             raise ValueError("É necessário preencher os campos de senha")
         else:
-            username = request.form['register-password']
+            password = request.form['register-password']
 
         # Gender Validation
         if request.form['gender'] is None:
@@ -129,11 +130,15 @@ def register_step3():
             gender = request.form['gender']
 
         # Birthday Validation
-        birthday = '{0}-{1}-{2}'.format(request.form['year'], request.form['month'], request.form['day'])
+        # birthday = '{0}-{1}-{2}'.format(request.form['year'], request.form['month'], request.form['day'])
+
+        motto = 'Olá, sou um novo Habbelix!'
 
         # Avatar Code Validation
-        if request.form['avatar-code'] is None or request.form['avatar-code'] is None:
+        if request.form['avatar_code'] is None:
             raise ValueError("É necessário preencher o avatar")
+        else:
+            avatar_code = request.form['avatar_code']
 
-
-        cursor.execute(''' INSERT INTO users ''')
+        cursor.execute(f'''INSERT INTO users (username, password, mail, auth_ticket, rank_vip, credits, vip_points, activity_points, look, gender, motto, account_created, ip_last, ip_reg)
+                       VALUES ('{username}', '{password}', '{email}', 0, 3, 999999, 0, 0, '{avatar_code}', '{gender}', '{motto}', '2020-02-12', '192.168.0.1', '192.168.0.1')''')
