@@ -696,6 +696,7 @@
 
             $( '#myHabbo' ).attr( 'src', URL ).attr( 'value', URL );
             $( codeObject ).val( this.buildFigure());
+            $( '#avatar_code' ).val( this.buildFigure());
         };
 
 

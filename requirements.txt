@@ -1,1 +1,17 @@
+bcrypt==3.1.7
+cffi==1.14.0
+Click==7.0
+Flask==1.1.1
+Flask-Bcrypt==0.7.1
+Flask-MySQL==1.5.1
+Flask-MySQLdb==0.2.0
+itsdangerous==1.1.0
+Jinja2==2.11.1
+MarkupSafe==1.1.1
 mysql-connector-python==8.0.16
+mysqlclient==1.4.6
+protobuf==3.11.3
+pycparser==2.19
+PyMySQL==0.9.3
+six==1.14.0
+Werkzeug==1.0.0

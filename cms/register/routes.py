@@ -1,17 +1,24 @@
 import re
 from flask import Blueprint, render_template, request, Response, Flask, jsonify
 from flask_bcrypt import Bcrypt
+from flask_mysqldb import MySQL
 
+# App
 app = Flask(__name__)
+
+# Encrypt
 bcrypt = Bcrypt(app)
 
-mod = Blueprint('register', __name__, template_folder='templates')
+# MySQL
+mysql = MySQL()
+mysql.init_app(app)
+mysql = MySQL(app)
 
+# Blueprint
+mod = Blueprint('register', __name__, template_folder='templates')
 
 @mod.route('/')
 def index():
-
-
     # Calcula o ano
     year = 2020 - 12
     year_list = []
@@ -31,7 +38,7 @@ def index():
                 return render_template('register3.html')
         else:
             return render_template('register.html')
-    
+
     return render_template('register.html')
 
 @mod.route('/step1', methods=['POST'])
@@ -62,7 +69,6 @@ def register_step1():
         else:
             if request.form['register-password'] == request.form['register-password-confirm']:
                 pw_hash = bcrypt.generate_password_hash(request.form['register-password']).decode('utf-8')
-                print(pw_hash)
                 data.update({'register-password': pw_hash})
             else:
                 raise ValueError("As senhas não combinam")
@@ -77,7 +83,7 @@ def register_step2():
             raise ValueError("É necessário preencher um gênero")
         else:
             data.update({'gender': request.form['gender']})
-        
+
         birthday = '{0}-{1}-{2}'.format(request.form['year'], request.form['month'], request.form['day'])
         data.update({'birthday': birthday})
 
@@ -85,5 +91,49 @@ def register_step2():
 
 @mod.route('/step3', methods=['POST'])
 def register_step3():
+
+    # Cursor
+    cursor = mysql.connection.cursor()
+
+    # Repeat Validation
     if request.method == 'POST':
-        print(request.form)
+
+        # E-mail Validation
+        if request.form['register-mail'] is None:
+        # if not EMAIL_REGEX(request.form['register-mail']):
+            raise ValueError("O endereço de e-mail deve ser válido")
+        else:
+            cursor.execute(''' SELECT * FROM users WHERE email = {0} '''.format(request.form['register-mail']))
+            query = cursor.fetchall()
+            if query:
+                raise ValueError("O endereço de e-mail já existe")
+            else:
+                email = request.form['register-mail']
+
+        # Nickname Validation
+        if request.form['register-username'] is None:
+            raise ValueError("É necessário preencher o campo usuário")
+        else:
+            username = request.form['register-username']
+
+        # Password Validation
+        if request.form['register-password'] is None or request.form['register-password-confirm'] is None:
+            raise ValueError("É necessário preencher os campos de senha")
+        else:
+            username = request.form['register-password']
+
+        # Gender Validation
+        if request.form['gender'] is None:
+            raise ValueError("É necessário preencher um gênero")
+        else:
+            gender = request.form['gender']
+
+        # Birthday Validation
+        birthday = '{0}-{1}-{2}'.format(request.form['year'], request.form['month'], request.form['day'])
+
+        # Avatar Code Validation
+        if request.form['avatar-code'] is None or request.form['avatar-code'] is None:
+            raise ValueError("É necessário preencher o avatar")
+
+
+        cursor.execute(''' INSERT INTO users ''')
