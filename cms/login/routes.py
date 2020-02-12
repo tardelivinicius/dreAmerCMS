@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, Response, Flask, jsonify, session, g
+from flask import Blueprint, render_template, request, Response, Flask, jsonify, session, g, redirect
 from flask_bcrypt import Bcrypt
 from flask_mysqldb import MySQL
 # App
@@ -17,8 +17,10 @@ mod = Blueprint('login', __name__, template_folder='templates')
 
 @mod.route('/')
 def index():
-    return render_template('index.html')
+    if 'user_id' in session:
+        return redirect('me')
 
+    return render_template('index.html')
 @mod.before_request
 def before_request():
     if 'user_id' in session:
@@ -57,6 +59,11 @@ def login():
             else:
                 print('Usuário ou senha inválidos')
                 return Response('Usuário ou senha inválidos', 404)
+
+@mod.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')
 
 @mod.route('/me')
 def me():
