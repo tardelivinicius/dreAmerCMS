@@ -127,9 +127,8 @@ def register_step2():
         else:
             avatar_code = request.form['avatar_code']
 
-        query = f"""INSERT INTO users (username, password, mail, auth_ticket, rank_vip, credits, vip_points, activity_points, look, gender, motto, account_created, ip_last, ip_reg)
-                       VALUES ('{username}', '{password}', '{email}', 0, 3, 999999, 0, 0, '{avatar_code}', '{gender}', '{motto}', '2020-02-12', '192.168.0.1', '192.168.0.1')"""
-
+        query = f"""INSERT INTO users (username, password, auth_ticket, vip_points, credits, activity_points, look, gender, motto, mail, account_created, ip_last, ip_reg)
+                       VALUES ('{username}', '{password}', 0, 0, 999999, 0, '{avatar_code}', '{gender}', '{motto}', '{email}', NOW(), '192.168.0.1', '192.168.0.1')"""
         db.execute(query)
         mysql.connection.commit()
 

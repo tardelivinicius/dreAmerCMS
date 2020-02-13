@@ -36,20 +36,16 @@
 			<div class="client" id="client"></div>
 		</div>
 		<script>
-			var Client = new SWFObject("{{ url_for('static', filename='swf/gordon/PRODUCTION-201602082203-712976078/Habbo.swf') }}", "client", "100%", "100%", "10.0.0");
-
-            console.log(Client)
-			Client.addVariable("client.allow.cross.domain", "1"); 
+			var Client = new SWFObject("{{ url_for('static', filename='swf/gordon/PRODUCTION-201601012205-226667486/Habbo.swf') }}", "client", "100%", "100%", "10.0.0");
+			Client.addVariable("client.allow.cross.domain", "0"); 
 			Client.addVariable("client.notify.cross.domain", "1");
 			Client.addVariable("connection.info.host", "127.0.0.1");
-			Client.addVariable("connection.info.port", "600");
-			// Client.addVariable("site.url", "http://127.0.0.1:5000");
-			// Client.addVariable("url.prefix", "http://127.0.0.1:5000"); 
-			// Client.addVariable("client.reload.url", "http://127.0.0.1:5000/account/me");
-			// Client.addVariable("client.fatal.error.url", "http://127.0.0.1:5000/account/me");
-			// Client.addVariable("client.connection.failed.url", "http://127.0.0.1:5000/account/me");
-			Client.addVariable("external.override.texts.txt", "{{ url_for('static', filename='swf/gamedata/override/external_flash_override_texts.txt') }}");
-			Client.addVariable("external.override.variables.txt", "{{ url_for('static', filename='swf/gamedata/override/external_override_variables.txt') }}");
+			Client.addVariable("connection.info.port", "30");
+			Client.addVariable("site.url", "http://127.0.0.1");
+			Client.addVariable("url.prefix", "http://127.0.0.1"); 
+			Client.addVariable("client.reload.url", "http://127.0.0.1:5000/account/me");
+			Client.addVariable("client.fatal.error.url", "http://127.0.0.1:5000/account/me");
+			Client.addVariable("client.connection.failed.url", "http://127.0.0.1:5000/account/me");
 			Client.addVariable("external.variables.txt", "{{ url_for('static', filename='swf/gamedata/external_variables.txt') }}");
 			Client.addVariable("external.texts.txt", "{{ url_for('static', filename='swf/gamedata/external_flash_texts.txt') }}");
 			Client.addVariable("external.figurepartlist.txt", "{{ url_for('static', filename='swf/gamedata/figuredata.xml') }}");
@@ -57,14 +53,15 @@
 			Client.addVariable("productdata.load.url", "{{ url_for('static', filename='swf/gamedata/productdata.txt') }}");
 			Client.addVariable("furnidata.load.url", "{{ url_for('static', filename='swf/gamedata/furnidata.xml') }}"); 
 			Client.addVariable("use.sso.ticket", "1"); 
-			Client.addVariable("sso.ticket", "241242142");
-			Client.addVariable("processlog.enabled", "0");
+			Client.addVariable("sso.ticket", "{{ g.user['auth_ticket'] }}");
+			Client.addVariable("processlog.enabled", "1");
 			Client.addVariable("client.starting", "Habbelix is loading...");
-			Client.addVariable("flash.client.url", "{{ url_for('static', filename='swf/gordon/PRODUCTION-201602082203-712976078/') }}");
+			Client.addVariable("flash.client.url", "{{ url_for('static', filename='swf/gordon/PRODUCTION-201601012205-226667486/') }}");
 			Client.addVariable("flash.client.origin", "popup");
 			Client.addVariable("ads.domain", "");
 			Client.addVariable("diamonds.enabled", '1');
-			Client.addParam('base', "{{ url_for('static', filename='swf/gordon/PRODUCTION-201602082203-712976078/') }}");
+			Client.addVariable("user.hash", "31385693ae558a03d28fc720be6b41cb1ccfec02");
+			Client.addParam('base', "{{ url_for('static', filename='swf/gordon/PRODUCTION-201601012205-226667486/') }}");
 			Client.addParam('allowScriptAccess', 'always');
 			Client.addParam('wmode', "opaque");
 			Client.write('client');

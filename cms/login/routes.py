@@ -41,7 +41,7 @@ def login():
         # MySQL cursor
         db = mysql.connection.cursor()
         if request.form['username'] is not None and request.form['password'] is not None:
-            db.execute(f"SELECT id, username, mail, password, rank_class FROM users WHERE username = '{request.form['username']}' OR mail = '{request.form['username']}'")
+            db.execute(f"SELECT id, username, mail, password, 'rank' FROM users WHERE username = '{request.form['username']}' OR mail = '{request.form['username']}'")
             result = db.fetchone()
             # Verify Result
             if result:
@@ -49,7 +49,7 @@ def login():
                 if bcrypt.check_password_hash(result['password'], str(request.form['password'])):
                     # User is LOGGED, mount session()
                     session['user_id'] = result['id']
-                    session['rank_class'] = result['rank_class']
+                    session['rank'] = result['rank']
                     # TODO - CRIAR UMA TABELA PARA ISSO
                     # db.execute(f"INSERT INTO heliocms_sessions (userid, ip, date, browser) VALUES('{result['id']}', '192.168.0.1', '2020-02-12', 'Chrome')")
                     # mysql.connection.commit()

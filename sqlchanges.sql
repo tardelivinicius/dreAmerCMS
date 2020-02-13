@@ -28,3 +28,40 @@ INSERT INTO `cms_settings` (`id`, `type`, `value`, `description`) VALUES (5, 'cl
 INSERT INTO `cms_settings` (`id`, `type`, `value`, `description`) VALUES (6, 'client_mus', '', 'The url to your external texts');
 INSERT INTO `cms_settings` (`id`, `type`, `value`, `description`) VALUES (7, 'client_texts', 'Habbed', 'The username you signed up to RetroTopsites.com with');
 INSERT INTO `cms_settings` (`id`, `type`, `value`, `description`) VALUES (8, 'client_variables', 'Habbed', 'Nome de Seu Hotel');
+
+
+ALTER TABLE `users`
+	ALTER `real_name` DROP DEFAULT;
+ALTER TABLE `users`
+	CHANGE COLUMN `real_name` `real_name` VARCHAR(40) NULL COLLATE 'latin1_swedish_ci' AFTER `username`;
+ALTER TABLE `users`
+	ALTER `working` DROP DEFAULT,
+	ALTER `mymusik` DROP DEFAULT,
+	ALTER `secretcode` DROP DEFAULT,
+	ALTER `cms_currency` DROP DEFAULT,
+	ALTER `age` DROP DEFAULT,
+	ALTER `role` DROP DEFAULT,
+	ALTER `photo_perfil` DROP DEFAULT,
+	ALTER `homework` DROP DEFAULT,
+	ALTER `color` DROP DEFAULT,
+	ALTER `cms_birthday` DROP DEFAULT,
+	ALTER `cms_twitter` DROP DEFAULT,
+	ALTER `cms_video` DROP DEFAULT,
+	ALTER `cms_pin` DROP DEFAULT,
+	ALTER `cms_role` DROP DEFAULT;
+ALTER TABLE `users`
+	CHANGE COLUMN `working` `working` VARCHAR(60) NULL COLLATE 'latin1_swedish_ci' AFTER `auth_ticket`,
+	CHANGE COLUMN `mymusik` `mymusik` VARCHAR(60) NULL COLLATE 'latin1_swedish_ci' AFTER `working`,
+	CHANGE COLUMN `secretcode` `secretcode` VARCHAR(60) NULL COLLATE 'latin1_swedish_ci' AFTER `mymusik`,
+	CHANGE COLUMN `cms_currency` `cms_currency` VARCHAR(255) NULL AFTER `allow_pull`,
+	CHANGE COLUMN `age` `age` VARCHAR(255) NULL AFTER `trusted`,
+	CHANGE COLUMN `role` `role` VARCHAR(255) NULL AFTER `age`,
+	CHANGE COLUMN `photo_perfil` `photo_perfil` VARCHAR(255) NULL AFTER `pin`,
+	CHANGE COLUMN `homework` `homework` VARCHAR(400) NULL COLLATE 'latin1_swedish_ci' AFTER `facebook_vin`,
+	CHANGE COLUMN `color` `color` VARCHAR(10) NULL COLLATE 'latin1_swedish_ci' AFTER `birthday`,
+	CHANGE COLUMN `cms_birthday` `cms_birthday` VARCHAR(100) NULL AFTER `change_name`,
+	CHANGE COLUMN `cms_twitter` `cms_twitter` VARCHAR(100) NULL AFTER `cms_pprofile`,
+	CHANGE COLUMN `cms_video` `cms_video` VARCHAR(50) NULL AFTER `cms_style`,
+	CHANGE COLUMN `cms_pin` `cms_pin` VARCHAR(10) NULL AFTER `cms_video`,
+	CHANGE COLUMN `cms_role` `cms_role` VARCHAR(50) NULL AFTER `cms_pin`;
+

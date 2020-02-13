@@ -25,7 +25,7 @@ def index():
     if 'user_id' in session:
         # MySQL cursor
         db = mysql.connection.cursor()
-        db.execute(f"SELECT id, username, mail, look, rank_class FROM users WHERE id = '{session['user_id']}'")
+        db.execute(f"SELECT id, username, mail, look, 'rank' FROM users WHERE id = '{session['user_id']}'")
         result = db.fetchone()
         g.user = result
 
