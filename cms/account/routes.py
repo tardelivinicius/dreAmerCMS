@@ -30,3 +30,15 @@ def index():
         g.user = result
 
     return render_template('me.html', config = config)
+
+@mod.route('/system')
+def system():
+    config = SystemConfig.load_configs()
+    if 'user_id' in session:
+        # MySQL cursor
+        db = mysql.connection.cursor()
+        db.execute(f"SELECT id, username, mail, look, rank_class FROM users WHERE id = '{session['user_id']}'")
+        result = db.fetchone()
+        g.user = result
+
+    return render_template('system.html', config = config)

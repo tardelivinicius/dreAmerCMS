@@ -22,11 +22,17 @@ def before_request():
     if 'user_id' in session:
         # MySQL cursor
         db = mysql.connection.cursor()
-        db.execute(f"SELECT id, username, mail, rank_class FROM users WHERE id = '{session['user_id']}'")
+        db.execute(f"SELECT id, username, mail, rank_class, look FROM users WHERE id = '{session['user_id']}'")
         result = db.fetchone()
         g.user = result
         
 @mod.route('/')
 def index():
     config = SystemConfig.load_configs()
-    return render_template('index.html', config = config)
+    return render_template('admin.html', config = config)
+
+
+@mod.route('/system')
+def system():
+    config = SystemConfig.load_configs()
+    return render_template('system.html', config = config)

@@ -1,11 +1,10 @@
 from flask import Flask
 from flask_mysqldb import MySQL
 from cms.account.routes import mod
+from cms.admin.routes import mod
 from cms.login.routes import mod
 from cms.register.routes import mod
 from cms.system.config import mod
-from cms.admin.routes import mod
-
 
 app = Flask(__name__)
 app.secret_key = 'grWvcvaRu3YXHH22KLncM893c8IV1d5d'
