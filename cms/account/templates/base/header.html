@@ -2,7 +2,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title>{{ config['cms_name'] }}: {{ g.user['username'] }}</title>
+    <title>{{ config['hotel_name'] }}: {{ g.user['username'] }}</title>
 
 	<link type="text/css" href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 </head>
@@ -13,7 +13,7 @@
 			<div class="row">
 				<div class="col-xl">
 					<div class="hotel"></div>
-					<div class="online-count-box"><b>{{ config['users_online'] }}</b>{{ config['cms_name'] }}'s online</div>
+					<div class="online-count-box"><b>{{ config['users_online'] }}</b>{{ config['hotel_name'] }}'s online</div>
 					<a href="/client" class="btn green big check-in-header" target="_blank">Jogar</a>
 				</div>
 			</div>

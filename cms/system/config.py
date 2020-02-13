@@ -24,25 +24,12 @@ class SystemConfig:
     def load_configs():
         # System Config
         db = mysql.connection.cursor()
-        db.execute(''' SELECT * FROM cms_settings ORDER BY id ASC''')
-        result = db.fetchall()
+        db.execute(''' SELECT * FROM cms_settings WHERE id = 1''')
+        result = db.fetchone()
 
         # Users Online
         db = mysql.connection.cursor()
         db.execute(''' SELECT COUNT(*) as online FROM users WHERE online = 1''')
         count = db.fetchone()
         
-        configs = {
-            "cms_name": result[0]['value'],
-            "cms_url": result[1]['value'],
-            "cms_client_limit": result[2]['value'],
-            "cms_maintenance": result[3]['value'],
-            "client_ip": result[4]['value'],
-            "client_mus": result[5]['value'],
-            "client_texts": result[6]['value'],
-            "client_variables": result[7]['value'],
-            "register_enable": result[8]['value'],
-            "users_online": count['online']
-        }
-
-        return configs
+        return result

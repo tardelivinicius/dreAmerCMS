@@ -1,114 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>{{ config['cms_name'] }} - Administração</title>
-
-  <!-- Custom fonts for this template-->
-  <link href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-  <!-- Custom styles for this template-->
-  <link href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}" rel="stylesheet">
-
-</head>
-
+{% include 'base/header_admin.html' %}
 <body id="page-top">
 
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-      <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3">{{ config['cms_name'] }}</div>
-      </a>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
-
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="index.html">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Início</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Hotel
-      </div>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-          <a class="nav-link" href="users">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Usuários</span>
-          </a>
-          <a class="nav-link" href="catalog">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Catálogo</span>
-          </a>
-          <a class="nav-link" href="coins">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Moedas</span>
-          </a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <div class="sidebar-heading">
-        Comunidade
-      </div>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-          <a class="nav-link" href="news">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Notícias</span>
-          </a>
-          <a class="nav-link" href="promotions">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Promoções</span>
-          </a>
-          <a class="nav-link" href="social">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Social</span>
-          </a>
-      </li>
-
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Sistema
-      </div>
-      <!-- Sistema - APENAS CEO (Rank 9) PODE MUDAR -->
-      {% if session['rank_class'] == 9 %}
-      <li class="nav-item">
-        <a class="nav-link" href="system">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Configurações</span></a>
-      </li>
-      {% endif %}
-    </ul>
-    <!-- End of Sidebar -->
+    {% include 'base/sidebar.html' %}
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -560,45 +456,5 @@
 
       </div>
       <!-- End of Main Content -->
-
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; HabbelixCMS 2020</span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
-
-    </div>
-    <!-- End of Content Wrapper -->
-
-  </div>
-  <!-- End of Page Wrapper -->
-
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
-
-  <!-- Bootstrap core JavaScript-->
-  <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="{{ url_for('static', filename='js/sb-admin-2.min.js') }}"></script>
-
-  <!-- Page level plugins -->
-  <script src="{{ url_for('static', filename='vendor/chart.js/Chart.min.js') }}"></script>
-
-  <!-- Page level custom scripts -->
-  <script src="{{ url_for('static', filename='js/demo/chart-area-demo.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/demo/chart-pie-demo.js') }}"></script>
-
-</body>
-
-</html>
+    {% include 'base/footer_admin.html' %}
+     

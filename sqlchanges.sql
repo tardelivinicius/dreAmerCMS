@@ -4,33 +4,6 @@ ALTER TABLE `users`
 	ALTER `facebook` DROP DEFAULT,
 	ALTER `cblueits` DROP DEFAULT;
 ALTER TABLE `users`
-	CHANGE COLUMN `seckey` `seckey` VARCHAR(999) NULL AFTER `active_players`,
-	CHANGE COLUMN `facebook_id` `facebook_id` VARCHAR(50) NULL AFTER `seckey`,
-	CHANGE COLUMN `facebook` `facebook` VARCHAR(200) NULL AFTER `facebook_id`,
-	CHANGE COLUMN `cblueits` `cblueits` VARCHAR(50) NULL AFTER `staff_profileimage_url`;
-	CHANGE COLUMN `rank` `rank_class` INT(1) UNSIGNED NULL DEFAULT '1' AFTER `auth_ticket`;
-
-
-ALTER TABLE `cms_settings`
-	ALTER `variable` DROP DEFAULT;
-ALTER TABLE `cms_settings`
-	ADD COLUMN `id` INT(100) NOT NULL AUTO_INCREMENT FIRST,
-	CHANGE COLUMN `variable` `type` VARCHAR(80) NOT NULL AFTER `id`,
-	DROP COLUMN `example`,
-	DROP PRIMARY KEY,
-	ADD PRIMARY KEY (`id`);
-
-INSERT INTO `cms_settings` (`id`, `type`, `value`, `description`) VALUES (1, 'cms_name', 'http://localhost\r\n', 'A url para o diretório de raiz de websites');
-INSERT INTO `cms_settings` (`id`, `type`, `value`, `description`) VALUES (2, 'cms_url', '192.99.242.13', 'O endereço IP para seu emulador hotel');
-INSERT INTO `cms_settings` (`id`, `type`, `value`, `description`) VALUES (3, 'cms_clientlimit', '90\r\n', 'The port that your emulator is running on');
-INSERT INTO `cms_settings` (`id`, `type`, `value`, `description`) VALUES (4, 'cms_maintenance', '30001', 'The port that your emulators MUS is running on');
-INSERT INTO `cms_settings` (`id`, `type`, `value`, `description`) VALUES (5, 'client_ip', '', 'The url to your external variables');
-INSERT INTO `cms_settings` (`id`, `type`, `value`, `description`) VALUES (6, 'client_mus', '', 'The url to your external texts');
-INSERT INTO `cms_settings` (`id`, `type`, `value`, `description`) VALUES (7, 'client_texts', 'Habbed', 'The username you signed up to RetroTopsites.com with');
-INSERT INTO `cms_settings` (`id`, `type`, `value`, `description`) VALUES (8, 'client_variables', 'Habbed', 'Nome de Seu Hotel');
-
-
-ALTER TABLE `users`
 	ALTER `real_name` DROP DEFAULT;
 ALTER TABLE `users`
 	CHANGE COLUMN `real_name` `real_name` VARCHAR(40) NULL COLLATE 'latin1_swedish_ci' AFTER `username`;
@@ -93,5 +66,7 @@ CREATE TABLE `cms_settings` (
 )
 COLLATE='latin1_swedish_ci'
 ENGINE=MyISAM
-AUTO_INCREMENT=14
+AUTO_INCREMENT=0
 ;
+
+INSERT INTO `cms_settings` (`id`, `hotel_name`, `hotel_url`, `hotel_maintenance`, `hotel_register_enable`, `client.allow.cross.domai`, `client.notify.cross.domain`, `connection.info.host`, `connection.info.port`, `external.variables.txt`, `external.texts.txt`, `external.figurepartlist.txt`, `flash.dynamic.avatar.download.configuration`, `productdata.load.url`, `furnidata.load.url`, `use.sso.ticket`, `processlog.enabled`, `client.starting`, `flash.client.url`, `flash.client.origin`, `ads.domain`, `diamonds.enabled`) VALUES (1, 'Habbelix', 'http://127.0.0.1', 0, 1, 0, 1, '127.0.0.1', '30', 'swf/gamedata/external_variables.txt', 'swf/gamedata/external_flash_texts.txt', 'swf/gamedata/figuredata.xml', 'swf/gamedata/figuremap.xml', 'swf/gamedata/productdata.txt', 'swf/gamedata/furnidata.xml', 1, 1, 'Habbelix está carregando', 'swf/gordon/PRODUCTION-201601012205-226667486/', 'popup', '0', 1);
