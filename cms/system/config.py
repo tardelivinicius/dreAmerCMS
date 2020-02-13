@@ -31,8 +31,7 @@ class SystemConfig:
         db = mysql.connection.cursor()
         db.execute(''' SELECT COUNT(*) as online FROM users WHERE online = 1''')
         count = db.fetchone()
-
-        print(count)
+        
         configs = {
             "cms_name": result[0]['value'],
             "cms_url": result[1]['value'],

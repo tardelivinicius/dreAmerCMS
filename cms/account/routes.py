@@ -19,13 +19,13 @@ mod = Blueprint('account', __name__, template_folder='templates')
 
 
 @mod.route('/')
-@mod.route('/me')
+@mod.route('/me', methods=['POST', 'GET'])
 def index():
     config = SystemConfig.load_configs()
     if 'user_id' in session:
         # MySQL cursor
         db = mysql.connection.cursor()
-        db.execute(f"SELECT id, username, mail, look, 'rank' FROM users WHERE id = '{session['user_id']}'")
+        db.execute(f"SELECT id, username, mail, look, `rank` FROM users WHERE id = '{session['user_id']}'")
         result = db.fetchone()
         g.user = result
 

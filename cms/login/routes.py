@@ -41,7 +41,7 @@ def login():
         # MySQL cursor
         db = mysql.connection.cursor()
         if request.form['username'] is not None and request.form['password'] is not None:
-            db.execute(f"SELECT id, username, mail, password, 'rank' FROM users WHERE username = '{request.form['username']}' OR mail = '{request.form['username']}'")
+            db.execute(f"SELECT id, username, mail, password, `rank` FROM users WHERE username = '{request.form['username']}' OR mail = '{request.form['username']}'")
             result = db.fetchone()
             # Verify Result
             if result:
