@@ -8,6 +8,8 @@ ALTER TABLE `users`
 	CHANGE COLUMN `facebook_id` `facebook_id` VARCHAR(50) NULL AFTER `seckey`,
 	CHANGE COLUMN `facebook` `facebook` VARCHAR(200) NULL AFTER `facebook_id`,
 	CHANGE COLUMN `cblueits` `cblueits` VARCHAR(50) NULL AFTER `staff_profileimage_url`;
+	CHANGE COLUMN `rank` `rank_class` INT(1) UNSIGNED NULL DEFAULT '1' AFTER `auth_ticket`;
+
 
 ALTER TABLE `cms_settings`
 	ALTER `variable` DROP DEFAULT;

@@ -12,19 +12,15 @@ mysql = MySQL(app)
 # Blueprint
 mod = Blueprint('system', __name__)
 
+# Rank Permissions
+PERMISSION_MOD = 6
+PERMISSION_ADMIN = 7
+PERMISSION_MANAGER = 8
+PERMISSION_CEO = 9
+
+
 class SystemConfig:
     
-    def __init__(self):
-        self.cms_name = ''
-        self.cms_client_limit = ''
-        self.cms_maintenance = ''
-        self.client_variables = ''
-        self.client_texts = ''
-        self.client_mus = ''
-        self.client_ip = ''
-        self.cms_url = ''
-    
-
     def load_configs():
         db = mysql.connection.cursor()
         db.execute(''' SELECT * FROM cms_settings ORDER BY id ASC''')
@@ -41,6 +37,5 @@ class SystemConfig:
             "client_variables": result[7]['value'],
             "register_enable": result[8]['value']
         }
-
 
         return configs

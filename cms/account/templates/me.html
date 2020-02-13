@@ -12,11 +12,9 @@
 	<div id="header-content">
 		<div class="container">
 			<div class="row">
-				<div class="col-12">
+				<div class="col-xl">
 					<div class="hotel"></div>
-
 					<div class="online-count-box"><b>0</b>{{ config['cms_name'] }}'s online</div>
-
 					<a href="client" class="btn green big check-in-header" target="_blank">Jogar</a>
 				</div>
 			</div>
@@ -47,7 +45,6 @@
 					<ul class="navigation">
 						<li>
 							<a href="community">Comunidade<span><i class="far fa-angle-down"></i></span></a>
-
 							<ul class="subnavi">
 								<li><a href="news">Notícias</a></li>
 								<li><a href="staffs">Equipe</a></li>
@@ -62,6 +59,7 @@
 
 	<div class="container">
 		<div class="row">
+			
 			<div class="col-8">
 				<div id="news-content">
 					<div class="news-article show" style="background-image:url(https://habboo-a.akamaihd.net/c_images/web_promo/lpromo_Boho_Street_Market.png)">
@@ -194,6 +192,9 @@
                         <li><a href="me">Início</a></li>
                         <li><a href="">Termos de Uso</a></li>
                         <li><a href="">Contato</a></li>
+						{% if session['rank_class'] in [6, 7, 8, 9] %}
+							<li><a href="/admin"><font color="red">Administração</font></a></li>
+						{% endif %}
                     </ul>
 
                     <p>Copyright &copy; Habbo Hotel. Todos os Direitos Reservados.<br />Esse site não possui afiliação alguma com Sulake Corporation Oy.<br />HabbelixCMS desenvolvido por<b> vvalle</b> e <b>Design</b> por <b>Sonay</b></p>

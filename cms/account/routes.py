@@ -17,16 +17,16 @@ mysql = MySQL(app)
 # Blueprint
 mod = Blueprint('account', __name__, template_folder='templates')
 
-@mod.before_request
-def before_request():
-    if 'user_id' in session:
-        # MySQL cursor
-        db = mysql.connection.cursor()
-        db.execute(f"SELECT id, username, mail, look FROM users WHERE id = '{session['user_id']}'")
-        result = db.fetchone()
-        g.user = result
 
+@mod.route('/')
 @mod.route('/me')
 def index():
     config = SystemConfig.load_configs()
+    if 'user_id' in session:
+        # MySQL cursor
+        db = mysql.connection.cursor()
+        db.execute(f"SELECT id, username, mail, look, rank_class FROM users WHERE id = '{session['user_id']}'")
+        result = db.fetchone()
+        g.user = result
+
     return render_template('me.html', config = config)
