@@ -1,0 +1,78 @@
+<html>
+</body>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>{{ config['cms_name'] }} - Jogar</title>
+	<script src="{{ url_for('static', filename='client/js/jquery-latest.js') }}" type="text/javascript"></script>
+	<script src="{{ url_for('static', filename='client/js/jquery-ui.js') }}" type="text/javascript"></script>
+	<script src="{{ url_for('static', filename='client/js/flashclient.js') }}"></script>
+	<script src="{{ url_for('static', filename='client/js/flash_detect_min.js') }}"></script>
+	<script src="{{ url_for('static', filename='client/js/client.js') }}" type="text/javascript"></script>
+	<link rel="stylesheet" href="{{ url_for('static', filename='client/css/client.css') }}" type="text/css">
+	</head>
+<body>
+		<!-- <script type="text/javascript">
+			$(document).ready(function(e) {
+				$.ajaxSetup({
+					cache:true
+				});
+				setInterval(function() {
+					$('#onlinecount').load('/onlinecountclient');
+				}, 8000);
+				$( "#onlinecount").click(function() {
+					$('#onlinecount').load('/onlinecountclient');
+				});
+			});
+		</script>
+		<div class="clientOnlineBox">
+			<div class="clientOnlineBoxTxt" id="onlinecount"><small><b><?= Game::usersOnline() ?></b> <?= $config['hotelName'] ?>'s online</small></div>
+			<img src="/templates/brain/client/images/onlineiconclient.png" style="width:29px;height:28px;ht; */position: absolute;margin-left: 130px;margin-top: -19px;">
+		</div>
+		<?php
+		}
+	?>
+	<center> -->
+		<div id="client-ui">
+			<div class="client" id="client"></div>
+		</div>
+		<script>
+			var Client = new SWFObject("{{ url_for('static', filename='swf/gordon/PRODUCTION-201602082203-712976078/Habbo.swf') }}", "client", "100%", "100%", "10.0.0");
+
+            console.log(Client)
+			Client.addVariable("client.allow.cross.domain", "1"); 
+			Client.addVariable("client.notify.cross.domain", "1");
+			Client.addVariable("connection.info.host", "127.0.0.1");
+			Client.addVariable("connection.info.port", "600");
+			// Client.addVariable("site.url", "http://127.0.0.1:5000");
+			// Client.addVariable("url.prefix", "http://127.0.0.1:5000"); 
+			// Client.addVariable("client.reload.url", "http://127.0.0.1:5000/account/me");
+			// Client.addVariable("client.fatal.error.url", "http://127.0.0.1:5000/account/me");
+			// Client.addVariable("client.connection.failed.url", "http://127.0.0.1:5000/account/me");
+			Client.addVariable("external.override.texts.txt", "{{ url_for('static', filename='swf/gamedata/override/external_flash_override_texts.txt') }}");
+			Client.addVariable("external.override.variables.txt", "{{ url_for('static', filename='swf/gamedata/override/external_override_variables.txt') }}");
+			Client.addVariable("external.variables.txt", "{{ url_for('static', filename='swf/gamedata/external_variables.txt') }}");
+			Client.addVariable("external.texts.txt", "{{ url_for('static', filename='swf/gamedata/external_flash_texts.txt') }}");
+			Client.addVariable("external.figurepartlist.txt", "{{ url_for('static', filename='swf/gamedata/figuredata.xml') }}");
+			Client.addVariable("flash.dynamic.avatar.download.configuration", "{{ url_for('static', filename='swf/gamedata/figuremap.xml') }}"); 
+			Client.addVariable("productdata.load.url", "{{ url_for('static', filename='swf/gamedata/productdata.txt') }}");
+			Client.addVariable("furnidata.load.url", "{{ url_for('static', filename='swf/gamedata/furnidata.xml') }}"); 
+			Client.addVariable("use.sso.ticket", "1"); 
+			Client.addVariable("sso.ticket", "241242142");
+			Client.addVariable("processlog.enabled", "0");
+			Client.addVariable("client.starting", "Habbelix is loading...");
+			Client.addVariable("flash.client.url", "{{ url_for('static', filename='swf/gordon/PRODUCTION-201602082203-712976078/') }}");
+			Client.addVariable("flash.client.origin", "popup");
+			Client.addVariable("ads.domain", "");
+			Client.addVariable("diamonds.enabled", '1');
+			Client.addParam('base', "{{ url_for('static', filename='swf/gordon/PRODUCTION-201602082203-712976078/') }}");
+			Client.addParam('allowScriptAccess', 'always');
+			Client.addParam('wmode', "opaque");
+			Client.write('client');
+			FlashExternalInterface.signoutUrl = "http://127.0.0.1:5000/logout";
+		</script>
+	</center>
+</body>
+</html>
+</center>
+</div>
+</head>

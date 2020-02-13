@@ -123,4 +123,4 @@ venv.bak/
 !.elasticbeanstalk/*.global.yml
 
 # 
-static/vendor/
+cms/static/swf/
