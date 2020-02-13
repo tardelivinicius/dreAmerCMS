@@ -1,0 +1,20 @@
+<div class="col-12">
+    <div id="footer-content">
+        <ul class="footer-links">
+            <li><a href="me">Início</a></li>
+            <li><a href="">Termos de Uso</a></li>
+            <li><a href="">Contato</a></li>
+            {% if session['rank'] in [6, 7, 8, 9] %}
+                <li><a href="/admin"><font color="red">Administração</font></a></li>
+            {% endif %}
+        </ul>
+
+        <p>Copyright &copy; Habbo Hotel. Todos os Direitos Reservados.<br />Esse site não possui afiliação alguma com Sulake Corporation Oy.<br />HabbelixCMS desenvolvido por<b> vvalle</b> e <b>Design</b> por <b>Sonay</b></p>
+    </div>
+</div>
+</div>
+</div>
+</body>
+<script type="text/javascript" src="{{ url_for('static', filename='js/vendor.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
+</html>

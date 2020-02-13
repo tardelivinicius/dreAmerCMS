@@ -65,3 +65,33 @@ ALTER TABLE `users`
 	CHANGE COLUMN `cms_pin` `cms_pin` VARCHAR(10) NULL AFTER `cms_video`,
 	CHANGE COLUMN `cms_role` `cms_role` VARCHAR(50) NULL AFTER `cms_pin`;
 
+
+CREATE TABLE `cms_settings` (
+	`id` INT(100) NOT NULL AUTO_INCREMENT,
+	`hotel_name` VARCHAR(80) NOT NULL,
+	`hotel_url` VARCHAR(80) NULL DEFAULT '',
+	`hotel_maintenance` INT(1) NULL DEFAULT '0',
+	`hotel_register_enable` INT(1) NULL DEFAULT '1',
+	`client.allow.cross.domai` INT(1) NULL DEFAULT '0',
+	`client.notify.cross.domain` INT(1) NULL DEFAULT '1',
+	`connection.info.host` VARCHAR(50) NULL DEFAULT NULL,
+	`connection.info.port` VARCHAR(50) NULL DEFAULT NULL,
+	`external.variables.txt` VARCHAR(50) NULL DEFAULT NULL,
+	`external.texts.txt` VARCHAR(50) NULL DEFAULT NULL,
+	`external.figurepartlist.txt` VARCHAR(50) NULL DEFAULT NULL,
+	`flash.dynamic.avatar.download.configuration` VARCHAR(50) NULL DEFAULT NULL,
+	`productdata.load.url` VARCHAR(50) NULL DEFAULT NULL,
+	`furnidata.load.url` VARCHAR(50) NULL DEFAULT NULL,
+	`use.sso.ticket` INT(1) NULL DEFAULT '1',
+	`processlog.enabled` INT(1) NULL DEFAULT '1',
+	`client.starting` VARCHAR(50) NOT NULL,
+	`flash.client.url` VARCHAR(50) NOT NULL,
+	`flash.client.origin` VARCHAR(50) NOT NULL,
+	`ads.domain` VARCHAR(50) NOT NULL,
+	`diamonds.enabled` INT(1) NOT NULL DEFAULT 1,
+	PRIMARY KEY (`id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=MyISAM
+AUTO_INCREMENT=14
+;

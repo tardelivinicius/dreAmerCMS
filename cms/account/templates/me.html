@@ -1,62 +1,4 @@
-<html>
-<head>
-    <meta charset="utf-8">
-
-    <title>{{ config['cms_name'] }}: {{ g.user['username'] }}</title>
-
-	<link type="text/css" href="css/style.css" rel="stylesheet">
-	<link type="text/css" href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
-</head>
-
-<body>
-	<div id="header-content">
-		<div class="container">
-			<div class="row">
-				<div class="col-xl">
-					<div class="hotel"></div>
-					<div class="online-count-box"><b>{{ config['users_online'] }}</b>{{ config['cms_name'] }}'s online</div>
-					<a href="/client" class="btn green big check-in-header" target="_blank">Jogar</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="header-menu">
-		<div class="container">
-			<div class="row">
-				<div class="col-5">
-					<ul class="user-menu">
-						<li>
-							<a href="me">
-								<div class="user-avatar-menu" style="background-image:url(http://habbo.com/habbo-imaging/avatarimage?figure={{g.user['look']}}8&head_direction=3&gesture=sml)"></div>{{ g.user['username'] }}<span><i class="far fa-angle-down"></i></span>
-							</a>
-
-							<ul class="user-subnavi">
-								<li><a href="profile">Meu Perfil</a></li>
-								<li><a href="settings">Configurações</a></li>
-								<li><a href="/logout" class="logout">Sair</a></li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-				<div class="col-2">
-					<a href="\" class="logo"></a>
-				</div>
-				<div class="col-5">
-					<ul class="navigation">
-						<li>
-							<a href="community">Comunidade<span><i class="far fa-angle-down"></i></span></a>
-							<ul class="subnavi">
-								<li><a href="news">Notícias</a></li>
-								<li><a href="staffs">Equipe</a></li>
-								<li><a href="photos">Fotos</a></li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-
+{% include 'base/header.html' %}
 	<div class="container">
 		<div class="row">
 			
@@ -186,23 +128,4 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-12">
-				<div id="footer-content">
-                    <ul class="footer-links">
-                        <li><a href="me">Início</a></li>
-                        <li><a href="">Termos de Uso</a></li>
-                        <li><a href="">Contato</a></li>
-						{% if session['rank'] in [6, 7, 8, 9] %}
-							<li><a href="/admin"><font color="red">Administração</font></a></li>
-						{% endif %}
-                    </ul>
-
-                    <p>Copyright &copy; Habbo Hotel. Todos os Direitos Reservados.<br />Esse site não possui afiliação alguma com Sulake Corporation Oy.<br />HabbelixCMS desenvolvido por<b> vvalle</b> e <b>Design</b> por <b>Sonay</b></p>
-                </div>
-            </div>
-        </div>
-    </div>
-    </body>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/vendor.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
-</html>
+{% include 'base/footer.html' %}

@@ -31,6 +31,18 @@ def index():
 
     return render_template('me.html', config = config)
 
+@mod.route('/profile', methods=['POST', 'GET'])
+def profile():
+    config = SystemConfig.load_configs()
+    if 'user_id' in session:
+        # MySQL cursor
+        db = mysql.connection.cursor()
+        db.execute(f"SELECT id, username, mail, look, `rank` FROM users WHERE id = '{session['user_id']}'")
+        result = db.fetchone()
+        g.user = result
+
+    return render_template('profile.html', config = config)
+
 @mod.route('/settings', methods=['POST', 'GET'])
 def setttings():
     config = SystemConfig.load_configs()
