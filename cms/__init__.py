@@ -17,10 +17,12 @@ app.config['MYSQL_CHARSET'] = ''
 app.config['MYSQL_SQL_MODE'] = None
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
+from cms.account.routes import mod
 from cms.login.routes import mod
 from cms.register.routes import mod
-from cms.account.routes import mod
+from cms.system.config import mod
 
 app.register_blueprint(login.routes.mod)
 app.register_blueprint(register.routes.mod, url_prefix='/register')
 app.register_blueprint(account.routes.mod, url_prefix='/account')
+app.register_blueprint(system.config.mod)

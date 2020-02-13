@@ -15,8 +15,8 @@
 
             <div class="content-box" id="step-1">
                 <div class="title-box">
-                    <div class="title">Credenciais</div>
-                    <div class="steps">1 / 3</div>
+                    <div class="title">Informações Pessoais</div>
+                    <div class="steps">1 / 2</div>
                 </div>
 
                 <div class="png20">
@@ -43,6 +43,16 @@
 
                         <span id='message'></span>
                         <!-- <p class="desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p> -->
+                        
+                        <input type="hidden" id="gender" name="gender" value="">
+
+                        <div class="alert">Escolha seu gênero</div>
+
+                        <div class="genders">
+                            <label for="male" onclick="$('#gender').val('M')"><div class="male" style="background-image:url(https://www.habbo.de/habbo-imaging/avatarimage?figure=hd-180-1.hr-893-45.lg-280-64.sh-300-64.fa-1201-0.ch-255-62&size=l&headonly=1)"></div></label>
+
+                            <label for="female" onclick="$('#gender').val('F')"><div class="female" style="background-image:url(https://www.habbo.de/habbo-imaging/avatarimage?figure=hd-600-1.hr-540-45.lg-695-62.sh-905-62.ch-660-62&size=l&head_direction=4&headonly=1)"></div></label>
+                        </div>
 
                         <p class="desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
 
@@ -123,8 +133,9 @@
                 success: function(result) {
                     console.log(result)
                     localStorage.setItem('register-email', result['register-email']);
-                    localStorage.setItem('register-password', result['register-password']);
                     localStorage.setItem('register-username', result['register-username']);
+                    localStorage.setItem('register-password', result['register-password']);
+                    localStorage.setItem('gender', result['gender']);
                     window.location.href = '?step=2'
                 },
                 error: function() {

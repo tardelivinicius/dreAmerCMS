@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, request, Response, Flask, jsonify, session, g, redirect
 from flask_bcrypt import Bcrypt
 from flask_mysqldb import MySQL
+from ..system.config import SystemConfig
+
 # App
 app = Flask(__name__)
 
@@ -17,10 +19,11 @@ mod = Blueprint('login', __name__, template_folder='templates')
 
 @mod.route('/')
 def index():
+    config = SystemConfig.load_configs()
     if 'user_id' in session:
         return redirect('/account/me')
 
-    return render_template('index.html')
+    return render_template('index.html', config = config)
 
 @mod.before_request
 def before_request():
@@ -42,11 +45,9 @@ def login():
             result = db.fetchone()
             # Verify Result
             if result:
-                print(result)
-                # # Password Encrypt Validate
+                # Password Encrypt Validate
                 if bcrypt.check_password_hash(result['password'], str(request.form['password'])):
                     # User is LOGGED, mount session()
-                    print('USER LOGGED')
                     session['user_id'] = result['id']
                     session['admin_login'] = True
                     # TODO - CRIAR UMA TABELA PARA ISSO

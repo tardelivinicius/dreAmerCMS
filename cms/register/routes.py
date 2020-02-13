@@ -34,8 +34,6 @@ def index():
         if request.args.get('step'):
             if int(request.args.get('step')) == 2:
                 return render_template('register2.html', year = year_list, days = [i for i in range(1, 32)])
-            if int(request.args.get('step')) == 3:
-                return render_template('register3.html')
         else:
             return render_template('register.html')
 
@@ -72,24 +70,18 @@ def register_step1():
                 data.update({'register-password': pw_hash})
             else:
                 raise ValueError("As senhas não combinam")
+        
+        # Gender Validation
+        if request.form['gender'] is None:
+            raise ValueError("É necessário preencher um gênero")
+        else:
+            data.update({'gender': request.form['gender']})
 
         print(data)
         return jsonify(data)
 
 @mod.route('/step2', methods=['POST'])
 def register_step2():
-    ''' Validação de gênero e data de nascimento '''
-    if request.method == 'POST':
-        data = {}
-        if request.form['gender'] is None:
-            raise ValueError("É necessário preencher um gênero")
-        else:
-            data.update({'gender': request.form['gender']})
-
-        return jsonify(data)
-
-@mod.route('/step3', methods=['POST'])
-def register_step3():
     ''' Nova validação e cadastro do usuário '''
 
     # MySQL cursor

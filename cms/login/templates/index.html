@@ -3,7 +3,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>Habbelix</title>
+        <title>{{ config['cms_name'] }}</title>
         <link type="text/css" href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet">
         <script type="text/javascript" src="{{ url_for('static', filename='js/vendor.js') }}"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
@@ -21,7 +21,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="logo"></div>
-                        <div class="online-count"><b>0</b> Habbelix online</div>
+                        <div class="online-count"><b>0</b> {{ config['cms_name'] }}'s online</div>
                     </div>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                     <div class="login-position">
                         <h2>Bem vindo</h2>
                         <form method="post" action="/login">
-                            <label for="login">Digite seu nome Habbelix ou e-mail</label>
+                            <label for="login">Digite seu nome {{ config['cms_name'] }} ou e-mail</label>
                             <input type="text" name="username" id="username">
 
                             <label for="password">Senha</label>
