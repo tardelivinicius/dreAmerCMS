@@ -31,3 +31,22 @@ def index():
 
     return render_template('me.html', config = config)
 
+@mod.route('/settings', methods=['POST', 'GET'])
+def setttings():
+    config = SystemConfig.load_configs()
+    if 'user_id' in session:
+        # MySQL cursor
+        db = mysql.connection.cursor()
+        db.execute(f"SELECT id, username, mail, look, `rank` FROM users WHERE id = '{session['user_id']}'")
+        result = db.fetchone()
+        g.user = result
+
+    if request.method == 'GET':
+        if request.args.get('step') == 'email':
+            return render_template('settings/settings_mail.html', config = config)
+        elif request.args.get('step') == 'password':
+            return render_template('settings/settings_password.html', config = config)
+        else:
+            return render_template('settings/settings_general.html', config = config)
+    
+    return render_template('settings/settings_general.html', config = config)
