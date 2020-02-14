@@ -51,7 +51,7 @@ def profile():
         db.execute(query)
         user = db.fetchone()
         # Profile - Rooms
-        query = f"""SELECT R.caption, R.state, R.model_name FROM rooms R JOIN users U ON U.id = R.owner WHERE U.username = '{username}'"""
+        query = f"""SELECT R.caption, R.description, R.users_now, R.state, R.model_name FROM rooms R JOIN users U ON U.id = R.owner WHERE U.username = '{username}'"""
         db.execute(query)
         user_rooms = db.fetchall()
         # Profile - User Groups

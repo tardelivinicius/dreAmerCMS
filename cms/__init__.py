@@ -7,6 +7,7 @@ from cms.login.routes import mod
 from cms.register.routes import mod
 from cms.system.config import mod
 from cms.client.routes import mod
+from cms.community.routes import mod
 
 app = Flask(__name__)
 app.secret_key = 'grWvcvaRu3YXHH22KLncM893c8IV1d5d'
@@ -32,3 +33,4 @@ app.register_blueprint(register.routes.mod, url_prefix='/register')
 app.register_blueprint(system.config.mod)
 app.register_blueprint(admin.routes.mod, url_prefix='/admin')
 app.register_blueprint(client.routes.mod, url_prefix='/client')
+app.register_blueprint(community.routes.mod, url_prefix='/community')

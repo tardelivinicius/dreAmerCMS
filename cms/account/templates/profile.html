@@ -24,10 +24,20 @@
                     <div class="desc">Dê uma olhada nos quartos de {{ user['username'] }}</div>
                 </div>
                 <div class="png20">
-                    {% for room in user_rooms %} 
-                        <div class="room-thumbnail"><img src=""><div class="room-name">{{ room.caption }}</div></div>
-                    {% endfor %}
-                    <div class="clear"></div>
+                    <div class="popular-rooms">
+                        {% for room in user_rooms %} 
+                            <a href="">
+                                <div class="rooms">
+                                    <div class="icon"></div>
+                                    <div class="room-details">
+                                        <div class="name">{{ room.caption }}</div>
+                                        <div class="desc">{{ room.description }}</div>
+                                        <div class="user-count">{{ room.users_now }} <span><i class="fas fa-user"></i></span></div>
+                                    </div>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
                 </div>
                 <div class="clear"></div>
             </div>

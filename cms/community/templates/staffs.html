@@ -1,0 +1,84 @@
+{% include 'base/header.html' %}
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div id="title-headline">CEO</div>
+                </div>
+            </div>
+            <div class="row">
+            {% for ceo_user in ceo_users %}
+                <div class="col-4"> 
+                    <a href="/account/profile?username={{ ceo_user['username'] }}" class="staff-box">
+                        <div class="staff-header"><div class="header"></div><div class="overlay"><div class="work">Developer</div><div class="username">{{ ceo_user['username'] }}</div></div></div>
+                        <div class="avatarimage" style="background-image:url(https://www.habbo.de/habbo-imaging/avatarimage?figure={{ ceo_user['look'] }}8&size=l)"></div>
+                        <div class="clear"></div>
+                        <div class="png">
+                            {% if ceo_user['online'] == 1 %}
+                                {% set status = 'online' %}
+                            {% else %}
+                                {% set status = 'offline' %}
+                            {% endif %}
+                            <div class="motto">{{ ceo_user['motto'] }}</div>
+                            <div class="online-status {{status}}"><div class="dot"></div></div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
+                    </a>
+                </div>
+            {% endfor %}
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div id="title-headline">Administração</div>
+                </div>
+            </div>
+            <div class="row">
+            {% for admin_user in admin_users %}
+                <div class="col-4"> 
+                    <a href="/account/profile?username={{ admin_user['username'] }}" class="staff-box">
+                        <div class="staff-header"><div class="header"></div><div class="overlay"><div class="work">Developer</div><div class="username">{{ admin_user['username'] }}</div></div></div>
+                        <div class="avatarimage" style="background-image:url(https://www.habbo.de/habbo-imaging/avatarimage?figure={{ admin_user['look'] }}8&size=l)"></div>
+                        <div class="clear"></div>
+                        <div class="png">
+                            {% if admin_user['online'] == 1 %}
+                                {% set status = 'online' %}
+                            {% else %}
+                                {% set status = 'offline' %}
+                            {% endif %}
+                            <div class="motto">{{ admin_user['motto'] }}</div>
+                            <div class="online-status {{status}}"><div class="dot"></div></div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
+                    </a>
+                </div>
+            {% endfor %}
+            </div>
+			<div class="row">
+                <div class="col-12">
+                    <div id="title-headline">Administração</div>
+                </div>
+            </div>
+            <div class="row">
+            {% for mod_user in mod_users %}
+                <div class="col-4"> 
+                    <a href="/account/profile?username={{ mod_user['username'] }}" class="staff-box">
+                        <div class="staff-header"><div class="header"></div><div class="overlay"><div class="work">Developer</div><div class="username">{{ mod_user['username'] }}</div></div></div>
+                        <div class="avatarimage" style="background-image:url(https://www.habbo.de/habbo-imaging/avatarimage?figure={{ mod_user['look'] }}8&size=l)"></div>
+                        <div class="clear"></div>
+                        <div class="png">
+                            {% if mod_user['online'] == 1 %}
+                                {% set status = 'online' %}
+                            {% else %}
+                                {% set status = 'offline' %}
+                            {% endif %}
+                            <div class="motto">{{ mod_user['motto'] }}</div>
+                            <div class="online-status {{status}}"><div class="dot"></div></div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
+                    </a>
+                </div>
+            {% endfor %}
+            </div>
+            {% include 'base/footer.html' %}
