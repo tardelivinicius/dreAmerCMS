@@ -29,31 +29,57 @@
                 </a>
         </div>
 <div class="col-8">
-    <div class="alert failed">Du musst die Felder ausgefüllt haben.</div>
-
+    <div style="display:none" class="alert failed" id="alert_failed"></div>
+    <div style="display:none" class="alert success" id="alert_sucess">Suas configurações foram salvas com sucesso!</div>
     <div id="content-box" style="height:570px">
         <div class="title-box png20">
-            <div class="title">E-Mail Adresse ändern</div>
+            <div class="title">Alterar Endereço de E-mail</div>
         </div>
 
         <div class="png20">
             <form method="post">
-                <label for="old-mail">Alte E-Mail Adresse</label>
-                <input type="email" id="old-mail" name="old_mail">
-                <div class="desc" style="margin: 0 0 20px 0">Bitte gebe deine alte E-Mail Adresse zur Identifizierung deines Accounts ein.</div>
+                <label for="old_email">E-mail Atual</label>
+                <input type="email" id="old_email" value="{{ g.user['mail'] }}" name="old_email" disabled>
+                <div class="desc" style="margin: 0 0 20px 0">Seu e-mail atual</div>
+
+                <label for="new-email">Novo endereço de E-mail</label>
+                <input type="email" id="new_email" name="new_email" required>
+                <div class="desc">Digite seu novo endereço de e-mail</div>
+
                 <div class="line"></div>
 
-                <label for="new-mail">Neue E-Mail Adresse</label>
-                <input type="email" id="new-mail" name="new_mail">
-                <div class="desc">Bitte gebe deine neue E-Mail Adresse ein.</div>
+                <label for="password_confirm">Sua senha</label>
+                <input type="password" id="password_confirm" name="password_confirm" required>
+                <div class="desc">Digite sua senha para confirmar a operação</div>
 
-                <label for="new-mail-repeat">Neue E-Mail Adresse wiederholen</label>
-                <input type="email" id="new-mail-repeat" name="new_mail_repeat">
-                <div class="desc">Bitte gebe die neue E-Mail Adresse erneut ein, um Schreibfehler zu vermeiden.</div>
-
-                <button class="btn green save">Speichern</button>
+                <button type="submit" class="btn green save">Salvar</button>
             </form>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('form').on('submit', function(event) {
+        $(':disabled').each(function(e) {
+            $(this).removeAttr('disabled');
+        })
+        event.preventDefault();
+        $.ajax({
+            url: 'save_settings_mail',
+            method: "POST",
+            data: $(this).serialize(),
+            async: false,
+            success: function(result) {
+                $('#alert_sucess').show();
+                setTimeout(function() { window.location.href = 'settings?step=email'}, 1000)
+            },
+            error: function(result) {
+                var $messageDiv = $('#alert_failed')
+                $messageDiv.show().html(result.responseText)
+            }
+        });
+    })
+})
+</script>
+
 {% include 'base/footer.html' %}

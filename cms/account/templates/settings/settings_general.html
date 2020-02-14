@@ -31,39 +31,80 @@
             </a>
         </div>
         <div class="col-8">
-            <div class="alert success">Deine Einstellungen wurden erfolgreich gespeichert!</div>
+            <div style="display:none" class="alert success" id="alert_sucess">Suas configurações foram salvas com sucesso!</div>
 
             <div id="content-box" style="height:380px">
                 <div class="title-box png20">
-                    <div class="title">Allgemeine Einstellungen</div>
+                    <div class="title">Configurações gerais</div>
                 </div>
-
                 <div class="png20">
                     <form method="post">
-                        <label>Verfolgungseinstellungen</label>
-                        <div class="desc">Dürfen dir andere Habbos im Hotel folgen?</div>
+                        <label>Seguir-me</label>
+                        <div class="desc">Deseja que outros {{ config['hotel_name'] }} possam te seguir?</div>
                         <div class="btnset">
-                            <input type="radio" value="0" id="btnset_following1" name="hide_inRoom" checked><label for="btnset_following1">Ja</label>
-                            <input type="radio" value="1" id="btnset_following3" name="hide_inRoom"><label for="btnset_following3">Nein</label>
+                            {% if g.user['hide_inroom'] == '0' %}
+                                {% set checked = 'checked' %}
+                                {% set unchecked = '' %}
+                            {% else %}
+                                {% set checked = '' %}
+                                {% set unchecked = 'checked' %}
+                            {% endif %}
+                            <input type="radio" value="0"  {{ checked }} id="btnset_following1" name="hide_in_room"><label for="btnset_following1">Sim</label>
+                            <input type="radio" value="1" {{ unchecked }} id="btnset_following3" name="hide_in_room"><label for="btnset_following3">Não</label>
                         </div>
 
-                        <label>Freundschaftsanfragen</label>
-                        <div class="desc">Dürfen dir andere Habbos Freundschaftsanfragen schicken?</div>
+                        <label>Solicitações de Amizade</label>
+                        <div class="desc">Deseja que outros {{ config['hotel_name'] }} possam enviar solicitação de amizade?</div>
                         <div class="btnset">
-                            <input type="radio" value="0" id="btnset_requests1" name="block_newFriends" checked><label for="btnset_requests1">Ja</label>
-                            <input type="radio" value="1" id="btnset_requests3" name="block_newFriends"><label for="btnset_requests3">Nein</label>
+                            {% if g.user['block_newfriends'] == '0' %}
+                                {% set checked = 'checked' %}
+                                {% set unchecked = '' %}
+                            {% else %}
+                                {% set checked = '' %}
+                                {% set unchecked = 'checked' %}
+                            {% endif %}
+                            <input type="radio" value="0" {{ checked }} id="btnset_requests1" name="block_new_friends" checked><label for="btnset_requests1">Sim</label>
+                            <input type="radio" value="1" {{ unchecked }} id="btnset_requests3" name="block_new_friends"><label for="btnset_requests3">Não</label>
                         </div>
 
                         <label>Online Status</label>
-                        <div class="desc">Dürfen andere Habbo sehen ob du Online bist?</div>
+                        <div class="desc">Deseja que outros {{ config['hotel_name'] }} vejam que você está online?</div>
                         <div class="btnset">
-                            <input type="radio" value="0" id="btnset_online1" name="hide_Online" checked><label for="btnset_online1">Ja</label>
-                            <input type="radio" value="1" id="btnset_online3" name="hide_Online"><label for="btnset_online3">Nein</label>
+                            {% if g.user['hide_online'] == '0' %}
+                                {% set checked = 'checked' %}
+                                {% set unchecked = '' %}
+                            {% else %}
+                                {% set checked = '' %}
+                                {% set unchecked = 'checked' %}
+                            {% endif %}
+                            <input type="radio" value="0" {{ checked }} id="btnset_online1" name="hide_online" checked><label for="btnset_online1">Sim</label>
+                            <input type="radio" value="1" {{ unchecked }} id="btnset_online3" name="hide_online"><label for="btnset_online3">Não</label>
                         </div>
 
-                        <button class="btn green save">Speichern</button>
+                        <button type="submit" class="btn green save">Salvar</button>
                     </form>
                 </div>
             </div>
         </div>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('form').on('submit', function(event) {
+                event.preventDefault();
+                $.ajax({
+                    url: 'save_settings',
+                    method: "POST",
+                    data: $(this).serialize(),
+                    async: false,
+                    success: function(result) {
+                        console.log('ok')
+                        $('#alert_sucess').show();
+                        setTimeout(function() { window.location.href = 'settings'}, 1000)
+                    },
+                    error: function() {
+                        console.log('erro')
+                    }
+                });
+            })
+        })
+        </script>
 {% include 'base/footer.html' %}
