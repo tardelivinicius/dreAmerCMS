@@ -47,6 +47,7 @@
 			Client.addVariable("client.reload.url", "{{ config['hotel_url'] }}/account/me");
 			Client.addVariable("client.fatal.error.url", "{{ config['hotel_url'] }}/account/me");
 			Client.addVariable("client.connection.failed.url", "{{ config['hotel_url'] }}/account/me");
+			Client.addVariable("external.override.variables.txt", "{{ url_for('static', filename='swf/gamedata/override/external_override_variables.txt') }}");
 			Client.addVariable("external.variables.txt", "{{ url_for('static', filename=config['external.variables.txt']) }}");
 			Client.addVariable("external.texts.txt", "{{ url_for('static', filename=config['external.texts.txt']) }}");
 			Client.addVariable("external.figurepartlist.txt", "{{ url_for('static', filename=config['external.figurepartlist.txt']) }}");
@@ -66,7 +67,7 @@
 			Client.addParam('allowScriptAccess', 'always');
 			Client.addParam('wmode', "opaque");
 			Client.write('client');
-			FlashExternalInterface.signoutUrl = "http://127.0.0.1:5000/logout";
+			FlashExternalInterface.signoutUrl = "http://127.0.0.1:5000/account/me";
 		</script>
 	</center>
 </body>
