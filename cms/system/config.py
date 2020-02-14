@@ -20,7 +20,7 @@ PERMISSION_CEO = 9
 
 
 class SystemConfig:
-    
+
     def load_configs():
         # System Config
         db = mysql.connection.cursor()
@@ -31,6 +31,6 @@ class SystemConfig:
         db = mysql.connection.cursor()
         db.execute(''' SELECT COUNT(*) as users_online FROM users WHERE online = '1' ''')
         users_online = db.fetchone()['users_online']
-        
+
         result.update({'users_online': users_online})
         return result
