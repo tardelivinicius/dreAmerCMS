@@ -13,7 +13,7 @@
                         <div class="avatarimage" style="background-image:url(https://www.habbo.de/habbo-imaging/avatarimage?figure={{ ceo_user['look'] }}8&size=l)"></div>
                         <div class="clear"></div>
                         <div class="png">
-                            {% if ceo_user['online'] == 1 %}
+                            {% if ceo_user['online'] == '1' %}
                                 {% set status = 'online' %}
                             {% else %}
                                 {% set status = 'offline' %}
@@ -40,7 +40,7 @@
                         <div class="avatarimage" style="background-image:url(https://www.habbo.de/habbo-imaging/avatarimage?figure={{ admin_user['look'] }}8&size=l)"></div>
                         <div class="clear"></div>
                         <div class="png">
-                            {% if admin_user['online'] == 1 %}
+                            {% if admin_user['online'] == '1' %}
                                 {% set status = 'online' %}
                             {% else %}
                                 {% set status = 'offline' %}
@@ -67,7 +67,7 @@
                         <div class="avatarimage" style="background-image:url(https://www.habbo.de/habbo-imaging/avatarimage?figure={{ mod_user['look'] }}8&size=l)"></div>
                         <div class="clear"></div>
                         <div class="png">
-                            {% if mod_user['online'] == 1 %}
+                            {% if mod_user['online'] == '1' %}
                                 {% set status = 'online' %}
                             {% else %}
                                 {% set status = 'offline' %}

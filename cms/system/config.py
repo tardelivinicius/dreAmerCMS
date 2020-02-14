@@ -29,7 +29,8 @@ class SystemConfig:
 
         # Users Online
         db = mysql.connection.cursor()
-        db.execute(''' SELECT COUNT(*) as online FROM users WHERE online = 1''')
-        count = db.fetchone()
+        db.execute(''' SELECT COUNT(*) as users_online FROM users WHERE online = '1' ''')
+        users_online = db.fetchone()['users_online']
         
+        result.update({'users_online': users_online})
         return result
