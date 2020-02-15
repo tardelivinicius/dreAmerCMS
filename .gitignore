@@ -1,5 +1,3 @@
-take5_api/settings/sent_emails/
-take5_installer/install/import_countries_files/import_errors/*
 *.pyc
 .env/*
 .env
@@ -122,5 +120,8 @@ venv.bak/
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 
-# 
+# Static Files
 cms/static/swf/
+cms/static/build/
+cms/static/plugins/
+cms/static/dist/

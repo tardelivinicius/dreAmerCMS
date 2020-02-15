@@ -25,7 +25,6 @@ def before_request():
         db.execute(f"SELECT id, username, mail, `rank`, look FROM users WHERE id = '{session['user_id']}'")
         result = db.fetchone()
         g.user = result
-        print(g.user)
         
 @mod.route('/')
 def index():
@@ -36,6 +35,13 @@ def index():
 def admin_client():
     config = SystemConfig.load_configs()
     return render_template('admin_client.html', config = config)
+
+@mod.route('/client_save', methods=['POST'])
+def client_save():
+
+    if request.method == 'POST':
+
+        print(request.form)
 
 @mod.route('/system')
 def system():

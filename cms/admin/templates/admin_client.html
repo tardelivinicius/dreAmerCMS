@@ -1,0 +1,165 @@
+{% include 'base/header_admin.html' %}
+  {% include 'base/sidebar_admin.html' %}
+  
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+              </div>
+            </div>
+          </div><!-- /.container-fluid -->
+        </section>
+    
+        <!-- Main content -->
+        <section class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <!-- left column -->
+              <div class="col-md-12">
+                <!-- Horizontal Form -->
+                <div class="card card-danger">
+                  <div class="card-header">
+                    <h3 class="card-title">Configurações do Cliente</h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <!-- form start -->
+                  <form role="form">
+                    <div class="card-body">
+                      <div class="form-group">
+                        <label for="connection.info.host">Conexão IP/Site do Emulador</label>
+                        <input type="text" class="form-control" id="connection.info.host" value="{{ config['connection.info.host'] }}">
+                      </div>
+                      <div class="form-group">
+                        <label for="connection.info.port">Porta de Conexão do Emulador</label>
+                        <input type="text" class="form-control" id="connection.info.port" value="{{ config['connection.info.port'] }}">
+                      </div>
+                      <div class="form-group">
+                        <label for="hotel_url">URL do Hotel</label>
+                        <input type="text" class="form-control" id="hotel_url" value="{{ config['hotel_url'] }}">
+                      </div>
+                      <div class="form-group">
+                        <label for="client.starting">Mensagem Loading do Cliente</label>
+                        <input type="text" class="form-control" id="client.starting" value="{{ config['client.starting'] }}">
+                      </div>
+                      <div class="form-group">
+                        <label for="flash.client.url">URL Production (Ex: swf/gordon/PRODUCTION-XYZ/)</label>
+                        <input type="text" class="form-control" id="flash.client.url" value="{{ config['flash.client.url'] }}">
+                      </div>
+                      <div class="form-group">
+                        <label for="external.variables.txt">External Variables</label>
+                        <input type="text" class="form-control" id="external.variables.txt" value="{{ config['external.variables.txt'] }}">
+                      </div>
+                      <div class="form-group">
+                        <label for="external.override.variables.txt">External Override Variables</label>
+                        <input type="text" class="form-control" id="external.override.variables.txt" value="{{ config['external.override.variables.txt'] }}">
+                      </div>
+                      <div class="form-group">
+                        <label for="external.texts.txt">External Texts</label>
+                        <input type="text" class="form-control" id="external.texts.txt" value="{{ config['external.texts.txt'] }}">
+                      </div>
+                      <div class="form-group">
+                        <label for="external.override.texts.txt">External Override Texts</label>
+                        <input type="text" class="form-control" id="external.override.texts.txt" value="{{ config['external.override.texts.txt'] }}">
+                      </div>
+                      <div class="form-group">
+                        <label for="external.figurepartlist.txt">External Figurepartlist</label>
+                        <input type="text" class="form-control" id="external.figurepartlist.txt" value="{{ config['external.figurepartlist.txt'] }}">
+                      </div>
+                      <div class="form-group">
+                        <label for="flash.dynamic.avatar.download.configuration">Figuremap</label>
+                        <input type="text" class="form-control" id="flash.dynamic.avatar.download.configuration" value="{{ config['flash.dynamic.avatar.download.configuration'] }}">
+                      </div>
+                      <div class="form-group">
+                        <label for="productdata.load.url">Productdata</label>
+                        <input type="text" class="form-control" id="productdata.load.url" value="{{ config['productdata.load.url'] }}">
+                      </div>
+                      <div class="form-group">
+                        <label for="furnidata.load.url">Furnidata</label>
+                        <input type="text" class="form-control" id="furnidata.load.url" value="{{ config['furnidata.load.url'] }}">
+                      </div>
+                      <div class="form-group">
+                        <label>Habilitar Autenticação por SSO</label>
+                        {% if config['use.sso.ticket'] == 1 %}
+                            {% set selected = 'selected' %}
+                            {% set unselected = '' %}
+                        {% else %}
+                            {% set selected = '' %}
+                            {% set unselected = 'selected' %}
+                        {% endif %}
+                        <select class="form-control" id="use.sso.ticket">
+                          <option value="1" {{ selected }}>Sim</option>
+                          <option value="2" {{ unselected }}>Não</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label>Habilitar Logs do Emulador</label>
+                        {% if config['processlog.enabled'] == 1 %}
+                            {% set selected = 'selected' %}
+                            {% set unselected = '' %}
+                        {% else %}
+                            {% set selected = '' %}
+                            {% set unselected = 'selected' %}
+                        {% endif %}
+                        <select class="form-control">
+                            <option value="1" {{ selected }}>Sim</option>
+                            <option value="2" {{ unselected }}>Não</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label>ADS Domain</label>
+                        {% if config['ads.domain'] == 1 %}
+                            {% set selected = 'selected' %}
+                            {% set unselected = '' %}
+                        {% else %}
+                            {% set selected = '' %}
+                            {% set unselected = 'selected' %}
+                        {% endif %}
+                        <select class="form-control">
+                            <option value="1" {{ selected }}>Sim</option>
+                            <option value="2" {{ unselected }}>Não</option>
+                        </select>
+                      </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                      <button type="submit" class="btn btn-success float-right">Salvar</button>
+                    </div>
+                    <!-- /.card-footer -->
+                  </form>
+                </div>
+                </div>
+                <!-- /.card -->
+              </div>
+              <!--/.col (right) -->
+            </div>
+            <!-- /.row -->
+          </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+      </div>
+      <!-- /.content-wrapper -->
+      <script type="text/javascript">
+        $(document).ready(function() {
+            $('form').on('submit', function(event) {
+            event.preventDefault();
+            $.ajax({
+                url: 'client_save',
+                method: "POST",
+                data: $(this).serialize(),
+                async: false,
+                success: function(result) {
+                    $('#alert_sucess').show();
+                    setTimeout(function() { window.location.href = 'settings?step=email'}, 1000)
+                },
+                error: function(result) {
+                    var $messageDiv = $('#alert_failed')
+                    $messageDiv.show().html(result.responseText)
+                }
+            });
+        })
+    })
+    </script>
+{% include 'base/footer_admin.html' %}
