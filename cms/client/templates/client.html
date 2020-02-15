@@ -10,36 +10,15 @@
 	<script src="{{ url_for('static', filename='client/js/client.js') }}" type="text/javascript"></script>
 	<link rel="stylesheet" href="{{ url_for('static', filename='client/css/client.css') }}" type="text/css">
 	</head>
-<body>
-		<!-- <script type="text/javascript">
-			$(document).ready(function(e) {
-				$.ajaxSetup({
-					cache:true
-				});
-				setInterval(function() {
-					$('#onlinecount').load('/onlinecountclient');
-				}, 8000);
-				$( "#onlinecount").click(function() {
-					$('#onlinecount').load('/onlinecountclient');
-				});
-			});
-		</script>
-		<div class="clientOnlineBox">
-			<div class="clientOnlineBoxTxt" id="onlinecount"><small><b><?= Game::usersOnline() ?></b> <?= $config['hotelName'] ?>'s online</small></div>
-			<img src="/templates/brain/client/images/onlineiconclient.png" style="width:29px;height:28px;ht; */position: absolute;margin-left: 130px;margin-top: -19px;">
-		</div>
-		<?php
-		}
-	?>
-	<center> -->
+	<body>
 		<div id="client-ui">
 			<div class="client" id="client"></div>
 		</div>
 		<script>
 			
 			var Client = new SWFObject("{{ url_for('static', filename=config['flash.client.url']) }}Habbo.swf", "client", "100%", "100%", "10.0.0");
-			Client.addVariable("client.allow.cross.domain", "{{ config['client.allow.cross.domain'] }}"); 
-			Client.addVariable("client.notify.cross.domain", "{{ config['client.notify.cross.domain'] }}");
+			Client.addVariable("client.allow.cross.domain", "1"); 
+			Client.addVariable("client.notify.cross.domain", "1");
 			Client.addVariable("connection.info.host", "{{ config['connection.info.host'] }}");
 			Client.addVariable("connection.info.port", "{{ config['connection.info.port'] }}");
 			Client.addVariable("site.url", "{{ config['hotel_url'] }}");
@@ -59,19 +38,14 @@
 			Client.addVariable("processlog.enabled", "{{ config['processlog.enabled'] }}");
 			Client.addVariable("client.starting", "{{ config['client.starting'] }}");
 			Client.addVariable("flash.client.url", "{{ url_for('static', filename=config['flash.client.url']) }}");
-			Client.addVariable("flash.client.origin", "{{ config['flash.client.origin'] }}");
+			Client.addVariable("flash.client.origin", "popup");
 			Client.addVariable("ads.domain", "{{ config['ads.domain'] }}");
-			Client.addVariable("diamonds.enabled", "{{ config['diamonds.enabled'] }}");
 			Client.addVariable("user.hash", "31385693ae558a03d28fc720be6b41cb1ccfec02");
 			Client.addParam('base', "{{ url_for('static', filename=config['flash.client.url']) }}");
 			Client.addParam('allowScriptAccess', 'always');
 			Client.addParam('wmode', "opaque");
 			Client.write('client');
-			FlashExternalInterface.signoutUrl = "http://127.0.0.1:5000/account/me";
+			FlashExternalInterface.signoutUrl = "{{ config['hotel_url'] }}/account/me";
 		</script>
-	</center>
 </body>
 </html>
-</center>
-</div>
-</head>

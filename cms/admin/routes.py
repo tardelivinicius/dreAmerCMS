@@ -32,6 +32,10 @@ def index():
     config = SystemConfig.load_configs()
     return render_template('admin.html', config = config)
 
+@mod.route('/client')
+def admin_client():
+    config = SystemConfig.load_configs()
+    return render_template('admin_client.html', config = config)
 
 @mod.route('/system')
 def system():
