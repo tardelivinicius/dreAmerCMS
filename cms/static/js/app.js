@@ -40,7 +40,7 @@ $(document).ready(function() {
 
     $("#login-submit").click(function(e) {
         if (0 === $("#login-username").length || 0 == $("#login-username").length) {
-            $(".alert").css({display: "block"}).html("Usuário ou senha inválidos");
+            $(".alert").css({display: "block"}).html("Vergiss nicht alle Felder auszufüllen!");
         } else {
             $.ajax({
                 type: "POST",
@@ -61,11 +61,6 @@ $(document).ready(function() {
         }
         e.preventDefault();
     });
-
-    // REGISTRO
-    // $(".email").click(function() {
-    //     console.log('oi')
-    // });
 
     $(".male").click(function() {
         $(this).addClass("selected");
