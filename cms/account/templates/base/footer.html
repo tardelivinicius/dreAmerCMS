@@ -17,4 +17,19 @@
 </body>
 <script type="text/javascript" src="{{ url_for('static', filename='js/vendor.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
+<script type="text/javascript">
+    function changeMotto() {
+            $.ajax({
+                url: 'change_motto',
+                method: "POST",
+                data: {"motto": $('#motto').val()},
+                async: false,
+                success: function(result) {
+                },
+                error: function() {
+                }
+            });
+            event.preventDefault();
+        }
+</script>
 </html>

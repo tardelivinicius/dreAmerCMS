@@ -86,6 +86,16 @@ def setttings():
     
     return render_template('settings/settings_general.html', config = config)
 
+@mod.route('/change_motto', methods=['POST'])
+def change_motto():
+    if request.method == 'POST':
+        db = mysql.connection.cursor()
+        query = f""" UPDATE users SET motto = '{request.form['motto']}' WHERE id = {session['user_id']}"""
+        db.execute(query)
+        mysql.connection.commit()
+        db.close()
+        return Response('', 202)
+
 @mod.route('/save_settings', methods=['POST'])
 def save_settings():
     if request.method == 'POST':
