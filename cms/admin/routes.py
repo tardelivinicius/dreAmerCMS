@@ -19,13 +19,15 @@ mod = Blueprint('admin', __name__, template_folder='templates')
 
 @mod.before_request
 def before_request():
-    if 'user_id' in session:
+    if 'user_id' in session and session['rank'] in [7,8,9]:
         # MySQL cursor
         db = mysql.connection.cursor()
         db.execute(f"SELECT id, username, mail, `rank`, look FROM users WHERE id = '{session['user_id']}'")
         result = db.fetchone()
         g.user = result
-
+    else:
+        return redirect('/')
+    
 @mod.route('/')
 def index():
     config = SystemConfig.load_configs()
@@ -53,9 +55,13 @@ def user(pk):
         JOIN ranks RK ON RK.id = U.`rank` WHERE U.id = {pk}"""
         db.execute(query)
         user = db.fetchone()
-        return render_template('admin_user.html',config = config, user = user)
+        # Rankings
+        query = f"""SELECT id, name FROM ranks"""
+        db.execute(query)
+        rankings = db.fetchall()
+        print(rankings)
+        return render_template('admin_user.html',config = config, user = user, rankings = rankings)
 
-    print(pk)
 @mod.route('/client')
 def admin_client():
     config = SystemConfig.load_configs()

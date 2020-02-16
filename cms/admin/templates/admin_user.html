@@ -13,107 +13,113 @@
           </div><!-- /.container-fluid -->
         </section>
     
-        <!-- Main content -->
-        <section class="content">
-          <div class="container-fluid">
-            <div class="row">
-              <!-- left column -->
-              <div class="col-md-12">
-                <!-- Horizontal Form -->
-                {% if user['ban'] == 0 %}
-                  <div class="card card-success">
-                {% else %}
-                  <div class="card card-danger">
-                {% endif %}
-                  <div class="card-header">
-                    <h3 class="card-title">{{ user['username'] }}</h3>
-                  </div>
-                  <!-- /.card-header -->
-                  <!-- form start -->
-                  <form method="post" action="/client_save">
-                    <div class="card-body">
+           <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3">
+
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+                <div class="text-center">
+                  <img src="http://habbo.com/habbo-imaging/avatarimage?figure={{ g.user['look'] }}8&size=b&head_direction=3&gesture=sml&headonly=1" alt="{{ g.user['username'] }}">
+                </div>
+
+                <h3 class="profile-username text-center">{{ user['username'] }}</h3>
+
+                <p class="text-muted text-center">{{ user['motto'] }}</p>
+
+                <ul class="list-group list-group-unbordered mb-3">
+                  <li class="list-group-item">
+                    <b>Quartos</b> <a class="float-right">{{ user['count_room'] }}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Moedas</b> <a class="float-right">{{ user['credits'] }}</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Diamantes</b> <a class="float-right">{{ user['diamonds'] }}</a>
+                  </li>
+                </ul>
+
+                <button class="btn btn-primary btn-block"><b>{{ user['ranking_name'] }}</b></a>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+            <!-- About Me Box -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Histórico</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <strong><i class="fas fa-book mr-1"></i> Education</strong>
+
+                <p class="text-muted">
+                  B.S. in Computer Science from the University of Tennessee at Knoxville
+                </p>
+
+                <hr>
+
+                <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+
+                <p class="text-muted">Malibu, California</p>
+
+                <hr>
+
+                <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
+
+                <p class="text-muted">
+                  <span class="tag tag-danger">UI Design</span>
+                  <span class="tag tag-success">Coding</span>
+                  <span class="tag tag-info">Javascript</span>
+                  <span class="tag tag-warning">PHP</span>
+                  <span class="tag tag-primary">Node.js</span>
+                </p>
+
+                <hr>
+
+                <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
+
+                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-9">
+            <div class="card">
+              <div class="card-body">
+                <div class="tab-content">
+                    <form class="form-horizontal">
                       <div class="form-group">
-                        <label for="connection.info.host">Conexão IP/Site do Emulador</label>
-                        <input type="text" class="form-control" name="connection.info.host" id="connection.info.host" value="{{ config['connection.info.host'] }}">
-                      </div>
-                      <div class="form-group">
-                        <label for="connection.info.port">Porta de Conexão do Emulador</label>
-                        <input type="text" class="form-control" name="connection.info.port" id="connection.info.port" value="{{ config['connection.info.port'] }}">
-                      </div>
-                      <div class="form-group">
-                        <label for="hotel_url">URL do Hotel</label>
-                        <input type="text" class="form-control" name="hotel_url" id="hotel_url" value="{{ config['hotel_url'] }}">
-                      </div>
-                      <div class="form-group">
-                        <label for="client.starting">Mensagem Loading do Cliente</label>
-                        <input type="text" class="form-control" name="client.starting" id="client.starting" value="{{ config['client.starting'] }}">
-                      </div>
-                      <div class="form-group">
-                        <label for="flash.client.url">URL Production (Ex: swf/gordon/PRODUCTION-XYZ/)</label>
-                        <input type="text" class="form-control" name="flash.client.url" id="flash.client.url" value="{{ config['flash.client.url'] }}">
-                      </div>
-                      <div class="form-group">
-                        <label for="external.variables.txt">External Variables</label>
-                        <input type="text" class="form-control" name="external.variables.txt" id="external.variables.txt" value="{{ config['external.variables.txt'] }}">
-                      </div>
-                      <div class="form-group">
-                        <label for="external.override.variables.txt">External Override Variables</label>
-                        <input type="text" class="form-control" name="external.override.variables.txt" id="external.override.variables.txt" value="{{ config['external.override.variables.txt'] }}">
-                      </div>
-                      <div class="form-group">
-                        <label for="external.texts.txt">External Texts</label>
-                        <input type="text" class="form-control" name="external.texts.txt" id="external.texts.txt" value="{{ config['external.texts.txt'] }}">
-                      </div>
-                      <div class="form-group">
-                        <label for="external.override.texts.txt">External Override Texts</label>
-                        <input type="text" class="form-control" name="external.override.texts.txt" id="external.override.texts.txt" value="{{ config['external.override.texts.txt'] }}">
-                      </div>
-                      <div class="form-group">
-                        <label for="external.figurepartlist.txt">External Figurepartlist</label>
-                        <input type="text" class="form-control" name="external.figurepartlist.txt" id="external.figurepartlist.txt" value="{{ config['external.figurepartlist.txt'] }}">
-                      </div>
-                      <div class="form-group">
-                        <label for="flash.dynamic.avatar.download.configuration">Figuremap</label>
+                        <label for="flash.dynamic.avatar.download.configuration">Usuário</label>
                         <input type="text" class="form-control" name="flash.dynamic.avatar.download.configuration" id="flash.dynamic.avatar.download.configuration" value="{{ config['flash.dynamic.avatar.download.configuration'] }}">
                       </div>
                       <div class="form-group">
-                        <label for="productdata.load.url">Productdata</label>
-                        <input type="text" class="form-control" name="productdata.load.url" id="productdata.load.url" value="{{ config['productdata.load.url'] }}">
+                        <label for="flash.dynamic.avatar.download.configuration">E-mail</label>
+                        <input type="text" class="form-control" name="flash.dynamic.avatar.download.configuration" id="flash.dynamic.avatar.download.configuration" value="{{ config['flash.dynamic.avatar.download.configuration'] }}">
                       </div>
                       <div class="form-group">
-                        <label for="furnidata.load.url">Furnidata</label>
-                        <input type="text" class="form-control" name="furnidata.load.url" id="furnidata.load.url" value="{{ config['furnidata.load.url'] }}">
+                        <label for="flash.dynamic.avatar.download.configuration">Missão</label>
+                        <input type="text" class="form-control" name="flash.dynamic.avatar.download.configuration" id="flash.dynamic.avatar.download.configuration" value="{{ config['flash.dynamic.avatar.download.configuration'] }}">
                       </div>
                       <div class="form-group">
-                        <label>Habilitar Autenticação por SSO</label>
-                        {% if config['use.sso.ticket'] == 1 %}
-                            {% set selected = 'selected' %}
-                            {% set unselected = '' %}
-                        {% else %}
-                            {% set selected = '' %}
-                            {% set unselected = 'selected' %}
-                        {% endif %}
-                        <select class="form-control" id="use.sso.ticket" id="use.sso.ticket">
-                          <option value="1" {{ selected }}>Sim</option>
-                          <option value="2" {{ unselected }}>Não</option>
+                        <label>Ranking</label>
+                        <select class="form-control"  name="ads.domain" id="ads.domain">
+                          {% for ranking in rankings %}
+                            {% if ranking.id == user.rank %}
+                              {% set selected = 'selected' %}
+                            {% endif %}
+                            <option value="{{ ranking.id }}" {{selected}}>{{ ranking.name }}</option>
+                          {% endfor %}
                         </select>
                       </div>
                       <div class="form-group">
-                        <label>Habilitar Logs do Emulador</label>
-                        {% if config['processlog.enabled'] == 1 %}
-                            {% set selected = 'selected' %}
-                            {% set unselected = '' %}
-                        {% else %}
-                            {% set selected = '' %}
-                            {% set unselected = 'selected' %}
-                        {% endif %}
-                        <select class="form-control" name="processlog.enabled" id="processlog.enabled">
-                            <option value="1" {{ selected }}>Sim</option>
-                            <option value="2" {{ unselected }}>Não</option>
-                        </select>
-                      </div>
-                      <div class="form-group">
-                        <label>ADS Domain</label>
+                        <label>Banir</label>
                         {% if config['ads.domain'] == 1 %}
                             {% set selected = 'selected' %}
                             {% set unselected = '' %}
@@ -126,25 +132,25 @@
                             <option value="2" {{ unselected }}>Não</option>
                         </select>
                       </div>
-                    </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer">
-                      <button type="submit" class="btn btn-success float-right">Salvar</button>
-                    </div>
-                    <!-- /.card-footer -->
-                  </form>
+                      <div class="form-group row">
+                        <div class="offset-sm-2 col-sm-10">
+                          <button type="submit" class="btn btn-danger">Submit</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <!-- /.tab-pane -->
                 </div>
-                </div>
-                <!-- /.card -->
-              </div>
-              <!--/.col (right) -->
+                <!-- /.tab-content -->
+              </div><!-- /.card-body -->
             </div>
-            <!-- /.row -->
-          </div><!-- /.container-fluid -->
-        </section>
-        <!-- /.content --
-      </div>
-      <!-- /.content-wrapper -->
+            <!-- /.nav-tabs-custom -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
       <script type="text/javascript">
        $(document).ready(function() {
             const Toast = Swal.mixin({
