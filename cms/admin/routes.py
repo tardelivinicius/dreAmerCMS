@@ -31,6 +31,31 @@ def index():
     config = SystemConfig.load_configs()
     return render_template('admin.html', config = config)
 
+@mod.route('/users')
+def users():
+    config = SystemConfig.load_configs()
+    db = mysql.connection.cursor()
+    query = F""" SELECT U.id, U.look, U.username, U.motto,  U.credits, U.diamonds, U.activity_points, RK.name as ranking_name, COUNT(R.caption) as count_room, CASE WHEN B.id THEN 1
+		ELSE 0 END as ban FROM users U LEFT JOIN rooms R ON R.owner = U.id LEFT JOIN bans B ON B.value = U.id OR U.ip_last OR U.machine_id
+        JOIN ranks RK ON RK.id = U.`rank`
+        GROUP BY U.id"""
+    db.execute(query)
+    users = db.fetchall()
+    return render_template('admin_users.html', config = config, users = users)
+
+@mod.route('/user/<pk>')
+def user(pk):
+    config = SystemConfig.load_configs()
+    if request.method == 'GET':
+        db = mysql.connection.cursor()
+        query = f"""SELECT U.*, RK.name as ranking_name, COUNT(R.caption) as count_room, CASE WHEN B.id THEN 1
+		ELSE 0 END as ban FROM users U LEFT JOIN rooms R ON R.owner = U.id LEFT JOIN bans B ON B.value = U.id OR U.ip_last OR U.machine_id
+        JOIN ranks RK ON RK.id = U.`rank` WHERE U.id = {pk}"""
+        db.execute(query)
+        user = db.fetchone()
+        return render_template('admin_user.html',config = config, user = user)
+
+    print(pk)
 @mod.route('/client')
 def admin_client():
     config = SystemConfig.load_configs()
@@ -72,7 +97,7 @@ def client_save():
         mysql.connection.commit()
         db.close()
         return Response('', 200)
-        
+
 @mod.route('/system')
 def system():
     config = SystemConfig.load_configs()

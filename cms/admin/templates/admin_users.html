@@ -1,0 +1,111 @@
+{% include 'base/header_admin.html' %}
+  {% include 'base/sidebar_admin.html' %}
+  
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+              </div>
+            </div>
+          </div><!-- /.container-fluid -->
+        </section>
+    
+        <!-- Main content -->
+        <section class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <!-- left column -->
+              <div class="col-md-12">
+                <!-- Horizontal Form -->
+                <div class="card card-info">
+                  <div class="card-header">
+                    <h3 class="card-title">Gerenciamento de Usuários</h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <!-- form start -->
+                  <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                      <thead>
+                      <tr>
+                        <th></th>
+                        <th>Usuário</th>
+                        <th>Missão</th>
+                        <th>Moedas</th>
+                        <th>Diamantes</th>
+                        <th>Duckets</th>
+                        <th>Ranking</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      {% for user in users %}
+                        <tr>
+                          <td width="1"><img src="http://habbo.com/habbo-imaging/avatarimage?figure={{ user['look'] }}8&size=b&head_direction=3&gesture=sml&headonly=1" height="50px" alt="{{ user['id'] }}"></td>
+                          <td>{{ user['username'] }}</td>
+                          <td>{{ user['motto'] }}</td>
+                          <td>{{ user['credits'] }} <i class="nav-icon fas fa-coins"></i></td>
+                          <td>{{ user['diamonds'] }} <i class="nav-icon fas fa-gem"></i></td>
+                          <td>{{ user['activity_points'] }} <i class="nav-icon fas fa-medal"></i></td>
+                          <td>{{ user['ranking_name'] }}</i></td>
+                          {% if user['ban'] == 0 %}
+                            <td witdh="1"><center><span class="center badge badge-success">Ativo</span> </td>
+                          {% else %}
+                            <td witdh="1"><center><span class="center badge badge-success">Banido</span> </td>
+                          {% endif %}
+                          <td><a href="user/{{ user['id'] }}"><button type="button" class="btn btn-block btn-primary"><i class="nav-icon fas fa-pencil-alt"></i> Editar</button></a></td>
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                      <tfoot>
+                    </table>
+                  </div>
+                </div>
+                </div>
+                <!-- /.card -->
+              </div>
+              <!--/.col (right) -->
+            </div>
+            <!-- /.row -->
+          </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content --
+      </div>
+      <!-- /.content-wrapper -->
+      <script type="text/javascript">
+       $(document).ready(function() {
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000
+            });
+
+            $('form').on('submit', function(event) {
+            event.preventDefault();
+            $.ajax({
+                url: 'client_save',
+                method: "POST",
+                data: $(this).serialize(),
+                async: false,
+                success: function(result) {
+                  Toast.fire({
+                    type: 'success',
+                    title: ' Configurações salvas com sucesso'
+                  })
+                },
+                error: function(result) {
+                  Toast.fire({
+                    type: 'error',
+                    title: 'Verifique os campos preenchidos'
+                  })
+                }
+            });
+        })
+    })
+
+    </script>
+{% include 'base/footer_admin.html' %}
