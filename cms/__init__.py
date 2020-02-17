@@ -16,9 +16,9 @@ app = Flask(__name__)
 # Secret Key
 app.secret_key = os.getenv('SECRET_KEY')
 
-# Enviroment
-load_dotenv()
-load_dotenv(dotenv_path='config.env')
+# # Enviroment
+# load_dotenv()
+# load_dotenv(dotenv_path='config.env')
 
 # MySQL Config
 app.config['MYSQL_HOST'] = 'dreamermysql.mysql.database.azure.com'
