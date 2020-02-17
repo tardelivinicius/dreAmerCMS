@@ -15,9 +15,9 @@ mysql.init_app(app)
 mysql = MySQL(app)
 
 # Blueprint
-mod = Blueprint('account', __name__, template_folder='templates')
+account = Blueprint('account', __name__, template_folder='templates')
 
-@mod.before_request
+@account.before_request
 def before_request():
     if 'user_id' in session:
         # MySQL cursor
@@ -26,13 +26,13 @@ def before_request():
         result = db.fetchone()
         g.user = result
 
-@mod.route('/')
-@mod.route('/me', methods=['POST', 'GET'])
+@account.route('/')
+@account.route('/me', methods=['POST', 'GET'])
 def index():
     config = SystemConfig.load_configs()
     return render_template('me.html', config = config)
 
-@mod.route('/profile', methods=['POST', 'GET'])
+@account.route('/profile', methods=['POST', 'GET'])
 def profile():
     config = SystemConfig.load_configs()
 
@@ -55,7 +55,7 @@ def profile():
             db.execute(query)
             user = db.fetchone()
             # Profile - Rooms
-            query = f"""SELECT R.caption, R.description, R.users_now, R.state, R.model_name FROM rooms R JOIN users U ON U.id = R.owner WHERE U.username = '{username}'"""
+            query = f"""SELECT R.* FROM rooms R JOIN users U ON U.id = R.owner WHERE U.username = '{username}'"""
             db.execute(query)
             user_rooms = db.fetchall()
             # Profile - User Groups
@@ -70,10 +70,10 @@ def profile():
             return render_template('profile.html', config = config, user = user, user_rooms = user_rooms, user_groups = user_groups, user_friends = user_friends)
         else:
             return redirect('me')
-        
-    
 
-@mod.route('/settings', methods=['POST', 'GET'])
+
+
+@account.route('/settings', methods=['POST', 'GET'])
 def setttings():
     config = SystemConfig.load_configs()
     if request.method == 'GET':
@@ -83,10 +83,10 @@ def setttings():
             return render_template('settings/settings_password.html', config = config)
         else:
             return render_template('settings/settings_general.html', config = config)
-    
+
     return render_template('settings/settings_general.html', config = config)
 
-@mod.route('/change_motto', methods=['POST'])
+@account.route('/change_motto', methods=['POST'])
 def change_motto():
     if request.method == 'POST':
         db = mysql.connection.cursor()
@@ -96,7 +96,7 @@ def change_motto():
         db.close()
         return Response('', 202)
 
-@mod.route('/save_settings', methods=['POST'])
+@account.route('/save_settings', methods=['POST'])
 def save_settings():
     if request.method == 'POST':
         db = mysql.connection.cursor()
@@ -106,7 +106,7 @@ def save_settings():
         db.close()
         return Response('', 200)
 
-@mod.route('/save_settings_mail', methods=['POST'])
+@account.route('/save_settings_mail', methods=['POST'])
 def save_settings_mail():
     if request.method == 'POST':
         db = mysql.connection.cursor()
@@ -121,10 +121,10 @@ def save_settings_mail():
 
         if request.form['new_email'] is None:
             return Response({"É necessário preencher um e-mail novo"}, 409)
-    
+
         if request.form['password_confirm'] is None:
             return Response({"É necessário preencher a senha para confirmar a operação"}, 409)
-        
+
         # Check User
         query = f"""SELECT id, mail, password FROM users WHERE id = {session['user_id']} AND mail = '{request.form['old_email']}' """
         db.execute(query)
@@ -149,7 +149,7 @@ def save_settings_mail():
             else:
                 return Response({"E-mail já cadastrado para outro usuário"}, 409)
 
-@mod.route('/save_settings_password', methods=['POST'])
+@account.route('/save_settings_password', methods=['POST'])
 def save_settings_password():
     if request.method == 'POST':
         db = mysql.connection.cursor()
@@ -161,13 +161,13 @@ def save_settings_password():
                 return Response({"E-mail informado não pertence ao usuário"}, 409)
         else:
             return Response({"É necessário preencher o e-mail para confirmar a operação"}, 409)
-        
+
         if request.form['old_password'] is None:
             return Response({"É necessário preencher a senha atual"}, 409)
 
         if request.form['new_password'] is None:
             return Response({"É necessário preencher uma nova senha"}, 409)
-    
+
         # Check User
         query = f"""SELECT password FROM users WHERE id = {session['user_id']} AND mail = '{request.form['email_confirm']}' """
         db.execute(query)
@@ -184,6 +184,6 @@ def save_settings_password():
                 return Response('', 200)
             else:
                 return Response({"A senha atual não confere com o banco de dados"}, 409)
-        
+
         else:
             return Response({"E-mail informado não existe"}, 409)

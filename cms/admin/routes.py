@@ -15,9 +15,9 @@ mysql.init_app(app)
 mysql = MySQL(app)
 
 # Blueprint
-mod = Blueprint('admin', __name__, template_folder='templates')
+admin = Blueprint('admin', __name__, template_folder='templates')
 
-@mod.before_request
+@admin.before_request
 def before_request():
     if 'user_id' in session and session['rank'] in [7,8,9]:
         # MySQL cursor
@@ -27,13 +27,13 @@ def before_request():
         g.user = result
     else:
         return redirect('/')
-    
-@mod.route('/')
+
+@admin.route('/')
 def index():
     config = SystemConfig.load_configs()
     return render_template('admin.html', config = config)
 
-@mod.route('/users')
+@admin.route('/users')
 def users():
     config = SystemConfig.load_configs()
     db = mysql.connection.cursor()
@@ -45,7 +45,7 @@ def users():
     users = db.fetchall()
     return render_template('admin_users.html', config = config, users = users)
 
-@mod.route('/user/<pk>')
+@admin.route('/user/<pk>')
 def user(pk):
     config = SystemConfig.load_configs()
     if request.method == 'GET':
@@ -62,19 +62,19 @@ def user(pk):
         print(rankings)
         return render_template('admin_user.html',config = config, user = user, rankings = rankings)
 
-@mod.route('/client')
+@admin.route('/client')
 def admin_client():
     config = SystemConfig.load_configs()
     return render_template('admin_client.html', config = config)
 
-@mod.route('/client_save', methods=['POST'])
+@admin.route('/client_save', methods=['POST'])
 def client_save():
     config = SystemConfig.load_configs()
 
     print(config['id'])
     if request.method == 'POST':
 
-        connection_info_host = request.form.get('connection.info.host', config['connection.info.host']) 
+        connection_info_host = request.form.get('connection.info.host', config['connection.info.host'])
         connection_info_port = request.form.get('connection.info.port', config['connection.info.port'])
         hotel_url = request.form.get('hotel_url', config['hotel_url'])
         client_starting = request.form.get('client.starting', config['client.starting'])
@@ -93,10 +93,10 @@ def client_save():
         # MySQL cursor
         db = mysql.connection.cursor()
 
-        query = f"""UPDATE cms_settings SET `connection.info.host` = '{connection_info_host}', `connection.info.port` = '{connection_info_port}', `hotel_url` = '{hotel_url}', 
-        `client.starting` = '{client_starting}', `flash.client.url` = '{flash_client_url}', `external.variables.txt` = '{external_variables_txt}', 
-        `external.override.variables.txt` = '{external_override_variables_txt}', `external.texts.txt` = '{external_texts_txt}', 
-        `external.override.texts.txt` = '{external_override_texts_txt}', `external.figurepartlist.txt` = '{external_figurepartlist_txt}', 
+        query = f"""UPDATE cms_settings SET `connection.info.host` = '{connection_info_host}', `connection.info.port` = '{connection_info_port}', `hotel_url` = '{hotel_url}',
+        `client.starting` = '{client_starting}', `flash.client.url` = '{flash_client_url}', `external.variables.txt` = '{external_variables_txt}',
+        `external.override.variables.txt` = '{external_override_variables_txt}', `external.texts.txt` = '{external_texts_txt}',
+        `external.override.texts.txt` = '{external_override_texts_txt}', `external.figurepartlist.txt` = '{external_figurepartlist_txt}',
         `flash.dynamic.avatar.download.configuration` = '{flash_dynamic_avatar_download_configuration}', `productdata.load.url` = '{productdata_load_url}',
         `furnidata.load.url` = '{furnidata_load_url}', `processlog.enabled` = '{processlog_enabled}', `ads.domain` = '{ads_domain}' WHERE id = {config['id']}"""
         db.execute(query)
@@ -104,7 +104,7 @@ def client_save():
         db.close()
         return Response('', 200)
 
-@mod.route('/system')
+@admin.route('/system')
 def system():
     config = SystemConfig.load_configs()
     return render_template('system.html', config = config)

@@ -15,9 +15,9 @@ mysql.init_app(app)
 mysql = MySQL(app)
 
 # Blueprint
-mod = Blueprint('login', __name__, template_folder='templates')
+system_login = Blueprint('login', __name__, template_folder='templates')
 
-@mod.route('/')
+@system_login.route('/')
 def index():
     config = SystemConfig.load_configs()
     if 'user_id' in session:
@@ -25,8 +25,9 @@ def index():
 
     return render_template('index.html', config = config)
 
-@mod.before_request
+@system_login.before_request
 def before_request():
+    config = SystemConfig.load_configs()
     if 'user_id' in session:
         # MySQL cursor
         db = mysql.connection.cursor()
@@ -34,7 +35,7 @@ def before_request():
         result = db.fetchone()
         g.user = result
 
-@mod.route('/login', methods=['POST'])
+@system_login.route('/login', methods=['POST'])
 def login():
     if request.method == 'POST':
         session.pop('user_id', None)
@@ -62,7 +63,7 @@ def login():
                 print('Usuário ou senha inválidos')
                 return Response('Usuário ou senha inválidos', 404)
 
-@mod.route('/logout')
+@system_login.route('/logout')
 def logout():
     session.clear()
     return redirect('/')

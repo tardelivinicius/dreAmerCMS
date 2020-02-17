@@ -15,9 +15,9 @@ mysql.init_app(app)
 mysql = MySQL(app)
 
 # Blueprint
-mod = Blueprint('register', __name__, template_folder='templates')
+register = Blueprint('register', __name__, template_folder='templates')
 
-@mod.route('/')
+@register.route('/')
 def index():
     # Calcula o ano
     year = 2020 - 12
@@ -39,7 +39,7 @@ def index():
 
     return render_template('register.html')
 
-@mod.route('/step1', methods=['POST'])
+@register.route('/step1', methods=['POST'])
 def register_step1():
     ''' Validação dos dados básicos '''
     # E-mail Regex
@@ -70,7 +70,7 @@ def register_step1():
                 data.update({'register-password': pw_hash})
             else:
                 raise ValueError("As senhas não combinam")
-        
+
         # Gender Validation
         if request.form['gender'] is None:
             raise ValueError("É necessário preencher um gênero")
@@ -80,7 +80,7 @@ def register_step1():
         print(data)
         return jsonify(data)
 
-@mod.route('/step2', methods=['POST'])
+@register.route('/step2', methods=['POST'])
 def register_step2():
     ''' Nova validação e cadastro do usuário '''
 
@@ -136,7 +136,7 @@ def register_step2():
 
         return Response('', 200)
 
-@mod.route('/check-username-email-exists', methods=['POST'])
+@register.route('/check-username-email-exists', methods=['POST'])
 def check_username_email_exists():
     # MySQL cursor
     db = mysql.connection.cursor()

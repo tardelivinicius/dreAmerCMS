@@ -10,7 +10,7 @@ mysql.init_app(app)
 mysql = MySQL(app)
 
 # Blueprint
-mod = Blueprint('system', __name__)
+system = Blueprint('system', __name__)
 
 # Rank Permissions
 PERMISSION_MOD = 6

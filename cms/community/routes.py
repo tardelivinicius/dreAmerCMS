@@ -11,10 +11,10 @@ mysql.init_app(app)
 mysql = MySQL(app)
 
 # Blueprint
-mod = Blueprint('community', __name__, template_folder='templates')
+community = Blueprint('community', __name__, template_folder='templates')
 
 
-@mod.before_request
+@community.before_request
 def before_request():
     if 'user_id' in session:
         # MySQL cursor
@@ -24,12 +24,12 @@ def before_request():
         g.user = result
 
 
-@mod.route('/news', methods=['POST', 'GET'])
+@community.route('/news', methods=['POST', 'GET'])
 def news():
     config = SystemConfig.load_configs()
     return render_template('news.html', config = config)
 
-@mod.route('/staffs', methods=['POST', 'GET'])
+@community.route('/staffs', methods=['POST', 'GET'])
 def staffs():
     config = SystemConfig.load_configs()
 

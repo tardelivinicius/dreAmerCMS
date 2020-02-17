@@ -12,10 +12,10 @@ mysql.init_app(app)
 mysql = MySQL(app)
 
 # Blueprint
-mod = Blueprint('client', __name__, template_folder='templates')
+system_client= Blueprint('client', __name__, template_folder='templates')
 
 
-@mod.before_request
+@system_client.before_request
 def before_request():
     if 'user_id' in session:
         # MySQL cursor
@@ -31,15 +31,15 @@ def before_request():
         g.user = result
 
 
-@mod.route('/')
+@system_client.route('/')
 def client():
     config = SystemConfig.load_configs()
     return render_template('client.html', config = config)
 
-@mod.route('/hh_human_item.swf')
+@system_client.route('/hh_human_item.swf')
 def hh_human_body_swf():
     return send_from_directory('static', filename='swf/gordon/PRODUCTION-201601012205-226667486/hh_human_body.swf')
 
-@mod.route('/hh_human_item.swf')
+@system_client.route('/hh_human_item.swf')
 def hh_human_item():
     return send_from_directory('static', filename='swf/gordon/PRODUCTION-201601012205-226667486/hh_human_item.swf')
