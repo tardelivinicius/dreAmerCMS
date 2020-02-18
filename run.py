@@ -3,13 +3,14 @@ from flask import Flask, app
 from pathlib import Path
 from dotenv import load_dotenv
 from flask_mysqldb import MySQL
-from cms.account.routes import account
-from cms.admin.routes import admin
-from cms.login.routes import system_login
-from cms.register.routes import register
+from cms.account.controllers import account
+from cms.admin.controllers import admin
+from cms.login.controllers import system_login
+from cms.register.controllers import register
 from cms.system.config import system
-from cms.client.routes import system_client
-from cms.community.routes import community
+from cms.client.controllers import system_client
+from cms.community.controllers import community
+
 app = Flask(__name__)
 
 # Secret Key

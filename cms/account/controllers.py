@@ -17,14 +17,14 @@ mysql = MySQL(app)
 # Blueprint
 account = Blueprint('account', __name__, template_folder='templates')
 
-# @account.before_request
-# def before_request():
-#     if 'user_id' in session:
-#         # MySQL cursor
-#         db = mysql.connection.cursor()
-#         db.execute(f"SELECT id, username, mail, look, `rank`, motto, last_online, account_created, block_newfriends, hide_inroom, hide_online FROM users WHERE id = '{session['user_id']}'")
-#         result = db.fetchone()
-#         g.user = result
+@account.before_request
+def before_request():
+    if 'user_id' in session:
+        # MySQL cursor
+        db = mysql.connection.cursor()
+        db.execute(f"SELECT id, username, mail, look, `rank`, motto, last_online, account_created, block_newfriends, hide_inroom, hide_online FROM users WHERE id = '{session['user_id']}'")
+        result = db.fetchone()
+        g.user = result
 
 @account.route('/')
 @account.route('/me', methods=['POST', 'GET'])
