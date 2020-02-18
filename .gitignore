@@ -21,7 +21,6 @@ __pycache__
 .Python
 # build/
 develop-eggs/
-dist/
 downloads/
 eggs/
 .eggs/
@@ -121,8 +120,4 @@ venv.bak/
 !.elasticbeanstalk/*.global.yml
 
 # Static Files
-cms/static/swf/
-cms/static/build/
-cms/static/plugins/
-cms/static/dist/
-cms/static/acp/
+static/swf/
