@@ -41,29 +41,27 @@ def profile():
         if request.args.get('username'):
             query = f"""SELECT U.username FROM Users U WHERE U.username = '{request.args.get('username')}'"""
             db.execute(query)
-            username = None
-            if db.fetchone():
-                username = db.fetchone()['username']
+            result = db.fetchone()
         else:
             query = f"""SELECT U.username FROM Users U WHERE U.id = {session['user_id']}"""
             db.execute(query)
-            username = db.fetchone()['username']
+            result = db.fetchone()
 
-        if username:
+        if result:
             # Profile - Basic Data
-            query = f"""SELECT U.username, U.motto, U.last_online, U.account_created, U.look FROM Users U WHERE U.username = '{username}'"""
+            query = f"""SELECT U.username, U.motto, U.last_online, U.account_created, U.look FROM Users U WHERE U.username = '{result['username']}'"""
             db.execute(query)
             user = db.fetchone()
             # Profile - Rooms
-            query = f"""SELECT R.* FROM rooms R JOIN users U ON U.id = R.owner WHERE U.username = '{username}'"""
+            query = f"""SELECT R.* FROM rooms R JOIN users U ON U.id = R.owner WHERE U.username = '{result['username']}'"""
             db.execute(query)
             user_rooms = db.fetchall()
             # Profile - User Groups
-            query = f"""SELECT G.name, G.badge FROM group_memberships GM JOIN `groups` G ON G.id = GM.group_id JOIN users U ON U.id = GM.user_id WHERE U.username = '{username}'"""
+            query = f"""SELECT G.name, G.badge FROM group_memberships GM JOIN `groups` G ON G.id = GM.group_id JOIN users U ON U.id = GM.user_id WHERE U.username = '{result['username']}'"""
             db.execute(query)
             user_groups = db.fetchall()
             # Profile - Friends
-            query = f"""SELECT U2.username AS username, U2.look AS look FROM messenger_friendships MF JOIN users U ON U.id = MF.user_one_id JOIN users U2 ON U2.id = MF.user_two_id WHERE U.username = '{username}'"""
+            query = f"""SELECT U2.username AS username, U2.look AS look FROM messenger_friendships MF JOIN users U ON U.id = MF.user_one_id JOIN users U2 ON U2.id = MF.user_two_id WHERE U.username = '{result['username']}'"""
             db.execute(query)
             user_friends = db.fetchall()
 
