@@ -21,12 +21,12 @@ app.secret_key = '1284721412AKJSDHADHDJOSH'
 # load_dotenv(dotenv_path='config.env')
 
 # MySQL Config
-app.config['MYSQL_HOST'] = 'dreamermysql.mysql.database.azure.com'
-app.config['MYSQL_USER'] = 'dreameradmin@dreamermysql'
-app.config['MYSQL_PASSWORD'] = 'dw1ceXc!'
-app.config['MYSQL_DB'] = 'habbocms'
+app.config['MYSQL_HOST'] = ''
+app.config['MYSQL_USER'] = ''
+app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_DB'] = ''
 app.config['MYSQL_PORT'] = 3306
-app.config['MYSQL_UNIX_SOCKET'] = 'dreamermysql.mysql.database.azure.com'
+app.config['MYSQL_UNIX_SOCKET'] = ''
 app.config['MYSQL_CONNECT_TIMEOUT'] = 3000
 app.config['MYSQL_READ_DEFAULT_FILE'] = None
 app.config['MYSQL_USE_UNICODE'] = True
