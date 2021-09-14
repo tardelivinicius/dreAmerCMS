@@ -22,7 +22,7 @@ def before_request():
     if 'user_id' in session:
         # MySQL cursor
         db = mysql.connection.cursor()
-        db.execute(f"SELECT id, username, mail, look, `rank`, motto, last_online, account_created, block_newfriends, hide_inroom, hide_online FROM users WHERE id = '{session['user_id']}'")
+        db.execute(f"SELECT id, username, mail, look, `rank`, motto, last_online, account_created FROM users WHERE id = '{session['user_id']}'")
         result = db.fetchone()
         g.user = result
 
@@ -53,11 +53,11 @@ def profile():
             db.execute(query)
             user = db.fetchone()
             # Profile - Rooms
-            query = f"""SELECT R.* FROM rooms R JOIN users U ON U.id = R.owner WHERE U.username = '{result['username']}'"""
+            query = f"""SELECT R.* FROM rooms R JOIN users U ON U.id = R.owner_name WHERE U.username = '{result['username']}'"""
             db.execute(query)
             user_rooms = db.fetchall()
             # Profile - User Groups
-            query = f"""SELECT G.name, G.badge FROM group_memberships GM JOIN `groups` G ON G.id = GM.group_id JOIN users U ON U.id = GM.user_id WHERE U.username = '{result['username']}'"""
+            query = f"""SELECT G.name, G.badge FROM guilds_members GM JOIN `guilds` G ON G.id = GM.guild_id JOIN users U ON U.id = GM.user_id WHERE U.username = '{result['username']}'"""
             db.execute(query)
             user_groups = db.fetchall()
             # Profile - Friends

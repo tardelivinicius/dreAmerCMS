@@ -1,7 +1,9 @@
 import re
+import socket
 from flask import Blueprint, render_template, request, Response, Flask, jsonify
 from flask_bcrypt import Bcrypt
 from flask_mysqldb import MySQL
+from datetime import datetime
 
 # App
 app = Flask(__name__)
@@ -127,8 +129,11 @@ def register_step2():
         else:
             avatar_code = request.form['avatar_code']
 
-        query = f"""INSERT INTO users (username, password, auth_ticket, vip_points, credits, activity_points, look, gender, motto, mail, account_created, ip_last, ip_reg)
-                       VALUES ('{username}', '{password}', 0, 0, 999999, 0, '{avatar_code}', '{gender}', '{motto}', '{email}', NOW(), '192.168.0.1', '192.168.0.1')"""
+        timestamp = int(datetime.utcnow().timestamp())
+
+        ip_register = socket.gethostbyname(socket.gethostname())
+        query = f"""INSERT INTO users (username, password, auth_ticket, credits, look, gender, motto, mail, account_created, ip_register, ip_current)
+                       VALUES ('{username}', '{password}', 0, 999999, '{avatar_code}', '{gender}', '{motto}', '{email}', '{timestamp}', '{ip_register}', '{ip_register}')"""
         db.execute(query)
         mysql.connection.commit()
 

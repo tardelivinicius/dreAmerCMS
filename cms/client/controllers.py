@@ -21,7 +21,7 @@ def before_request():
         # MySQL cursor
         db = mysql.connection.cursor()
         # Generate Auth Token
-        auth_ticket = '{0}{1}'.format('HabbelixCMS-', random.getrandbits(32))
+        auth_ticket = '{0}{1}'.format('Brain-1.8.1-', random.getrandbits(32))
         # Update User Auth
         db.execute(f"UPDATE users SET auth_ticket = '{auth_ticket}' WHERE id = '{session['user_id']}'")
         mysql.connection.commit()
@@ -38,8 +38,12 @@ def client():
 
 @system_client.route('/hh_human_item.swf')
 def hh_human_body_swf():
-    return send_from_directory('static', filename='swf/gordon/PRODUCTION-201601012205-226667486/hh_human_body.swf')
+    return send_from_directory('static', filename='/swf/gordon/PRODUCTION-202006192205-424220153/hh_human_body.swf')
 
 @system_client.route('/hh_human_item.swf')
 def hh_human_item():
-    return send_from_directory('static', filename='swf/gordon/PRODUCTION-201601012205-226667486/hh_human_item.swf')
+    return send_from_directory('static', filename='/swf/gordon/PRODUCTION-202006192205-424220153/hh_human_item.swf')
+
+# @system_client.route('/configuration.json')
+# def configuration_json():
+#     return send_from_directory('static', filename='/swf/gordon/PRODUCTION-202006192205-424220153/hh_human_body.swf')
